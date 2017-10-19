@@ -1,0 +1,11 @@
+main.c
+test_libft.c
+*.o
+*.swp
+*.swo
+*.gch
+libft.a
+auteur
+moulitest
+a.out
+libftprintf.a
