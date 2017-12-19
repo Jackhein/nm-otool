@@ -36,17 +36,17 @@ LIBFT = $(I_LIBFT) -Llibft -lft
 all: $(NAME_NM)
 
 $(NAME_NM): $(OBJ_NM)
-	@make -C libft
-	@$(CC) $(FLAGS) -o $@ $(OBJ_NM) $(HEADERS) $(LIBFT) $(I_PRINTF)
-	@echo "\033[1;34mNm\t\t\033[1;33mCompilation\t\033[0;32m-OK-\033[0m"
+	make -C libft
+	$(CC) $(FLAGS) -o $@ $(OBJ_NM) $(HEADERS) $(LIBFT) $(I_PRINTF)
+	@echo "\033[1;34mNm\t\t\033[1;33mCompilation\t\033[0;32m[OK]\033[0m"
 
 # $(NAME_OTOOL): $(OBJ_OTOOL)
 # 	@make -C libft
 # 	@$(CC) $(FLAGS) -o $@ $(OBJ_OTOOL) $(HEADERS) $(LIBFT) $(I_PRINTF)
-# 	@echo "\033[1;34mOtool\t\t\033[1;33mCompilation\t\033[0;32m-OK-\033[0m"
+# 	@echo "\033[1;34mOtool\t\t\033[1;33mCompilation\t\033[0;32m[OK]\033[0m"
 
 $(OBJ_DIR_NM)/%.o: $(SRC_DIR_NM)/%.c
-	@mkdir $(OBJ_DIR_NM) 2> /dev/null || true
+	mkdir $(OBJ_DIR_NM) 2> /dev/null || true
 	@$(CC) $(FLAGS) $(HEADERS) -o $@ -c $< $(I_LIBFT)
 
 # $(OBJ_DIR_OTOOL)/%.o: $(SRC_DIR_OTOOL)/%.c
@@ -54,29 +54,29 @@ $(OBJ_DIR_NM)/%.o: $(SRC_DIR_NM)/%.c
 # 	@$(CC) $(FLAGS) $(HEADERS) -o $@ -c $< $(I_LIBFT)
 
 res:
-	@mkdir -p res/
-	@cat /usr/include/mach-o/loader.h > res/loader.h
-	@cat /usr/include/mach-o/nlist.h > res/nlist.h
-	@cat /usr/include/mach/machine.h > res/machine.h
-	@cat /usr/include/ar.h > res/ar.h
+	mkdir -p res/
+	cat /usr/include/mach-o/loader.h > res/loader.h
+	cat /usr/include/mach-o/nlist.h > res/nlist.h
+	cat /usr/include/mach/machine.h > res/machine.h
+	cat /usr/include/ar.h > res/ar.h
 
 clean:
 	# @rm -rf $(OBJ_NM) $(OBJ_OTOOL) $(NAME_NM) $(NAME_OTOOL)
-	@rm -rf $(OBJ_NM) $(NAME_NM)
-	@echo "\033[1;34mNm_otool\t\033[1;33mCleaning obj\t\033[0;32m-OK-\033[0m"
+	rm -rf $(OBJ_NM) $(NAME_NM)
+	@echo "\033[1;34mNm_otool\t\033[1;33mCleaning obj\t\033[0;32m[OK]\033[0m"
 
 fclean: clean
-	@make fclean -C libft
-	@echo "\033[1;34mNm_otool\t\033[1;33mCleaning lib\t\033[0;32m-OK-\033[0m"
+	make fclean -C libft
+	@echo "\033[1;34mNm_otool\t\033[1;33mCleaning lib\t\033[0;32m[OK]\033[0m"
 	# @rm -rf $(OBJ_DIR_NM) $(OBJ_DIR_OTOOL) res/
-	@rm -rf $(OBJ_DIR_NM)
+	rm -rf $(OBJ_DIR_NM)
 
 re: fclean all
 
 norme:
-	@make norme -C libft
-	@echo "\033[1;34mNm_otool\t\033[1;33mNorminette\t\033[0;32m-OK-\033[0m"
+	make norme -C libft
+	@echo "\033[1;34mNm_otool\t\033[1;33mNorminette\t\033[0;32m[OK]\033[0m"
 	# @norminette $(SRC_PATH_NM) $(SRC_PATH_OTOOL) $(INC_NM) $(INC_OTOOL)
-	@norminette $(SRC_PATH_NM) $(INC_NM)
+	norminette $(SRC_PATH_NM) $(INC_NM)
 
 .PHONY: re fclean clean all norme res
