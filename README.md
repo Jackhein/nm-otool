@@ -56,4 +56,4 @@ The first column is the _symbol value_, the second is the _type_ and the last on
 ## Ressources
 
 - [Open Source implementation](https://opensource.apple.com/source/cctools/cctools-758/misc/nm.c) by Apple,
-- [Parsing Mach-O files]c(https://lowlevelbits.org/parsing-mach-o-files/) tutorial
+- [Parsing Mach-O files](https://lowlevelbits.org/parsing-mach-o-files/) tutorial
