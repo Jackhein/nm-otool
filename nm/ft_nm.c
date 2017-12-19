@@ -6,17 +6,11 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:49:57 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/19 11:57:02 by ademenet         ###   ########.fr       */
+/*   Updated: 2017/12/19 17:46:09 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <sys/mman.h>
-#include <mach-o/loader.h>
-#include <mach-o/nlist.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <stdlib.h>
+#include "./inc/ft_nm.h"
 
 /*
 enum	error
@@ -43,6 +37,12 @@ void			print_error(t_error err)
 ** [ ] load file, gestion d'erreurs
 */
 
+static void		usage(const char *file_name)
+{
+	ft_printf("Usage: %s [file ...]\n", file_name);
+	return ;
+}
+
 void			print_output(int nsyms, int symoff, int stroff, char *ptr)
 {
 	int					i;
@@ -53,8 +53,15 @@ void			print_output(int nsyms, int symoff, int stroff, char *ptr)
 	stringtable = (void *)ptr + stroff;
 	for (i = 0; i < nsyms; ++i)
 	{
-		printf("%s\n", stringtable + array[i].n_un.n_strx);
+		ft_printf("%015llx ", array[i].n_value);
+		ft_printf("%d ", array[i].n_type);
+		ft_printf("%s\n", stringtable + array[i].n_un.n_strx);
 	}
+}
+
+void			handle_32(char *ptr)
+{
+	return ;
 }
 
 void			handle_64(char *ptr)
@@ -80,6 +87,18 @@ void			handle_64(char *ptr)
 	}
 }
 
+int				is_64(uint32_t magic)
+{
+	return (magic == MH_MAGIC_64 || magic == MH_CIGAM_64);
+}
+
+int				is_swap(uint32_t magic)
+{
+	return (magic == MH_CIGAM || magic == MH_CIGAM_64);
+}
+
+
+
 void			nm(char *ptr)
 {
 	// Nous regardons les 4 premiers octets du fichier afin de déterminer
@@ -89,10 +108,11 @@ void			nm(char *ptr)
 	int			magic_number;
 
 	magic_number = *(int *)ptr;
-	if ((int)magic_number == MH_MAGIC_64)
-	{
+	// if ((int)magic_number == MH_MAGIC_64)
+	if (is_64(magic_number))
 		handle_64(ptr);
-	}
+	else
+		handle_32(ptr);
 }
 
 int				main(int ac, char **av)
@@ -103,7 +123,7 @@ int				main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		fprintf(stderr, "Please give me arg\n");
+		usage(av[0]);
 		return (EXIT_FAILURE);
 	}
 	if ((fd = open(av[1], O_RDONLY)) < 0)
