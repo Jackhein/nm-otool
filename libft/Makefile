@@ -6,7 +6,7 @@
 #    By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/26 14:07:17 by ademenet          #+#    #+#              #
-#    Updated: 2016/06/28 15:56:55 by ademenet         ###   ########.fr        #
+#    Updated: 2017/12/19 16:39:51 by ademenet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,22 +92,22 @@ HEADERS = libft.h
 OBJECT = $(SOURCES:.c=.o)
 
 $(NAME):
-	@$(CC) $(FLAGS) -c $(SOURCES)
-	@ar rc $(NAME) $(OBJECT)
-	@ranlib $(NAME)
-	@make -C ft_printf
+	$(CC) $(FLAGS) -c $(SOURCES)
+	ar rc $(NAME) $(OBJECT)
+	ranlib $(NAME)
+	make -C ft_printf
 	@echo "\033[1;34mLibft\t\t\033[1;33mCompilation\t\033[0;32m[OK]\033[0m"
 
 all: $(NAME)
 
 clean:
-	@rm -rf $(OBJECT)
-	@make clean -C ft_printf
+	rm -rf $(OBJECT)
+	make clean -C ft_printf
 	@echo "\033[1;34mLibft\t\t\033[1;33mCleaning obj\t\033[0;32m[OK]\033[0m"
 
 fclean: clean
-	@rm -fr $(NAME)
-	@make fclean -C ft_printf
+	rm -fr $(NAME)
+	make fclean -C ft_printf
 	@echo "\033[1;34mLibft\t\t\033[1;33mCleaning lib\t\033[0;32m[OK]\033[0m"
 
 re: fclean all
