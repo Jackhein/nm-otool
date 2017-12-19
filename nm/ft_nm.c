@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_nm.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:49:57 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/13 16:52:56 by ademenet         ###   ########.fr       */
+/*   Updated: 2017/12/19 11:57:02 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,31 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <stdlib.h>
+
+/*
+enum	error
+{
+	EXIT_FAIL = -1,
+	EXIT_SUCC
+};
+
+typedef enum error	t_error;
+
+void			print_error(t_error err)
+{
+	if (err == EXIT_FAIL)
+		printf("%s\n")
+	else if (err == EXIT_SUCC)
+		printf("%s\n")
+}
+*/
+
+/*
+** TODO :
+** [ ] lire les sections pour Mach-O
+** [ ] Gerer les fat
+** [ ] load file, gestion d'erreurs
+*/
 
 void			print_output(int nsyms, int symoff, int stroff, char *ptr)
 {
@@ -40,7 +65,6 @@ void			handle_64(char *ptr)
 	struct load_command		*lc;
 	struct symtab_command	*sym;
 
-	
 	header = (struct mach_header_64 *)ptr;
 	ncmds = header->ncmds;
 	lc = (void *)ptr + sizeof(*header);
@@ -65,7 +89,7 @@ void			nm(char *ptr)
 	int			magic_number;
 
 	magic_number = *(int *)ptr;
-	if (magic_number == MH_MAGIC_64)
+	if ((int)magic_number == MH_MAGIC_64)
 	{
 		handle_64(ptr);
 	}
