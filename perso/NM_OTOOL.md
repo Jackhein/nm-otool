@@ -12,3 +12,13 @@ Les _segments_ permettent de définir un certains nombres de droit d'accès. Par
 - `__DATA` est en `READ` et `WRITE`
 
 Les _sections_ correspondent ensuite à des bouts de l'exécutable.
+
+## Illustrations
+
+Deux images illustrants très bien l'architecture des fichiers binaires _Mach-o_ :
+
+![mach-o](mach-o-osx.png)
+
+![mach-o-64](mach-o-64b-osx.png)
+
+<sub><sup>[Source](https://imgur.com/a/bwIKM#11)</sup></sub>
