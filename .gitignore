@@ -56,3 +56,5 @@ dkms.conf
 res/
 ft_nm
 ft_otool
+obj_nm
+obj_otool
