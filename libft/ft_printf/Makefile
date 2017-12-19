@@ -6,7 +6,7 @@
 #    By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/20 11:33:31 by ademenet          #+#    #+#              #
-#    Updated: 2017/12/19 16:39:33 by ademenet         ###   ########.fr        #
+#    Updated: 2017/12/19 16:42:30 by ademenet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,11 +73,11 @@ $(NAME): $(OBJ) $(OBJLIB)
 	@echo "\033[1;34mLibftprintf\t\033[1;33mCompilation\t\033[0;32m[OK]\033[0m"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
-	mkdir $(OBJ_PATH) 2> /dev/null || true
+	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@$(CC) -o $@ -c $<
 
 $(OBJLIB_PATH)/%.o: $(LIB_PATH)/%.c
-	mkdir $(OBJLIB_PATH) 2> /dev/null || true
+	@mkdir $(OBJLIB_PATH) 2> /dev/null || true
 	@$(CC) -o $@ -c $<
 
 clean:

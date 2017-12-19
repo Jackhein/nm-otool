@@ -46,12 +46,12 @@ $(NAME_NM): $(OBJ_NM)
 # 	@echo "\033[1;34mOtool\t\t\033[1;33mCompilation\t\033[0;32m[OK]\033[0m"
 
 $(OBJ_DIR_NM)/%.o: $(SRC_DIR_NM)/%.c
-	mkdir $(OBJ_DIR_NM) 2> /dev/null || true
-	@$(CC) $(FLAGS) $(HEADERS) -o $@ -c $< $(I_LIBFT)
+	@mkdir $(OBJ_DIR_NM) 2> /dev/null || true
+	$(CC) $(FLAGS) $(HEADERS) -o $@ -c $< $(I_LIBFT)
 
 # $(OBJ_DIR_OTOOL)/%.o: $(SRC_DIR_OTOOL)/%.c
 # 	@mkdir $(OBJ_DIR_OTOOL) 2> /dev/null || true
-# 	@$(CC) $(FLAGS) $(HEADERS) -o $@ -c $< $(I_LIBFT)
+# 	$(CC) $(FLAGS) $(HEADERS) -o $@ -c $< $(I_LIBFT)
 
 res:
 	mkdir -p res/
