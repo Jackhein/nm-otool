@@ -6,128 +6,17 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:49:57 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/19 18:24:47 by ademenet         ###   ########.fr       */
+/*   Updated: 2017/12/21 19:00:13 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_nm.h"
 
-/*
-enum	error
-{
-	EXIT_FAIL = -1,
-	EXIT_SUCC
-};
+// TODO :
+// 1 - lire quel type de fichier > appel la bonne fonction
+// 2 - iterer sur les symbols et recuperer les infos
 
-typedef enum error	t_error;
-
-void			print_error(t_error err)
-{
-	if (err == EXIT_FAIL)
-		printf("%s\n")
-	else if (err == EXIT_SUCC)
-		printf("%s\n")
-}
-*/
-
-/*
-** TODO :
-** [ ] lire les sections pour Mach-O
-** [ ] Gerer les fat
-** [ ] load file, gestion d'erreurs
-*/
-
-static void		usage(const char *file_name)
-{
-	ft_printf("Usage: %s [file ...]\n", file_name);
-	return ;
-}
-
-void			print_output(int nsyms, int symoff, int stroff, char *ptr)
-{
-	int					i;
-	char				*stringtable;
-	struct  nlist_64	*array;
-
-	array = (void *)ptr + symoff;
-	stringtable = (void *)ptr + stroff;
-	for (i = 0; i < nsyms; ++i)
-	{
-		// Get type
-		const char			*n_type;
-		n_type = NULL;
-		uint8_t 			mask;
-		mask = array[i].n_type & N_TYPE;
-		if (mask == N_UNDF)
-			n_type = "N_UNDF";
-		else if (mask == N_ABS)
-			n_type = "N_ABS";
-		else if (mask == N_SECT)
-		{
-			// TODO faire get_section qui recupere la section
-			// cf. nlist.h l.146
-			// n_sect est un ordinal pour trouver dans quelle section
-			// nous nous trouvons >>> Trouver un moyen de determiner
-			// dans quelle section je me trouve vraiment (T, d, S, etc.)
-			n_type = "N_SECT";
-			ft_printf("n_sect : %d\n", array[i].n_sect);
-		}
-		else if (mask == N_PBUD)
-			n_type = "N_PBUD";
-		else if (mask == N_INDR)
-			n_type = "N_INDR";
-		else
-			return ;
-		// End Get type
-
-		ft_printf("%015llx ", array[i].n_value);
-		ft_printf("%s ", n_type);
-		// TODO faire un quicksort
-		ft_printf("%s\n", stringtable + array[i].n_un.n_strx);
-	}
-}
-
-void			handle_32(char *ptr)
-{
-	return ;
-}
-
-void			handle_64(char *ptr)
-{
-	int						ncmds;
-	int						i;
-	struct mach_header_64	*header;
-	struct load_command		*lc;
-	struct symtab_command	*sym;
-
-	header = (struct mach_header_64 *)ptr;
-	ncmds = header->ncmds;
-	lc = (void *)ptr + sizeof(*header);
-	for (i = 0 ; i < ncmds; ++i)
-	{
-		if (lc->cmd == LC_SYMTAB)
-		{
-			sym = (struct symtab_command *)lc;
-			print_output(sym->nsyms, sym->symoff, sym->stroff, ptr);
-			break ;
-		}
-		lc = (void *)lc + lc->cmdsize;
-	}
-}
-
-int				is_64(uint32_t magic)
-{
-	return (magic == MH_MAGIC_64 || magic == MH_CIGAM_64);
-}
-
-int				is_swap(uint32_t magic)
-{
-	return (magic == MH_CIGAM || magic == MH_CIGAM_64);
-}
-
-
-
-void			nm(char *ptr)
+static void		nm(char *ptr, char *file)
 {
 	// Nous regardons les 4 premiers octets du fichier afin de déterminer
 	// sur quel type d'architecture nous nous trouvons : 64 bits, fat
@@ -136,44 +25,47 @@ void			nm(char *ptr)
 	int			magic_number;
 
 	magic_number = *(int *)ptr;
-	// if ((int)magic_number == MH_MAGIC_64)
 	if (is_64(magic_number))
 		handle_64(ptr);
-	else
+	else if (is_32(magic_number))
 		handle_32(ptr);
+	else
+		error_display(MAGIC_NUM);
+}
+
+// TODO :
+// - verifier le magic number et appeler la bonne fonction
+// - comment stocker les donnees pour les classer ensuite ?
+
+static int		iterate_over_files(char *file)
+{
+	int			fd;
+	struct stat	buf;
+	
+	if ((fd = open(file, O_RDONLY)) < 0)
+		return (error_display(OPEN));
+	if (fstat(fd, &buf) < 0)
+		return(error_display(FSTAT));
+	if ((ptr = mmap(0, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
+		return (error_display(MMAP));
+	nm(ptr, file);
+	if (munmap(ptr, buf.st_size) < 0)
+		return(error_display(MUNMAP));
+	return (EXIT_SUCCESS);
 }
 
 int				main(int ac, char **av)
 {
-	int			fd;
+	int			i;
 	char		*ptr;
-	struct stat	buf;
 
-	if (ac != 2)
+	if (ac == 1)
+		iterate_over_file("a.out");
+	else
 	{
-		usage(av[0]);
-		return (EXIT_FAILURE);
-	}
-	if ((fd = open(av[1], O_RDONLY)) < 0)
-	{
-		perror("open");
-		return (EXIT_FAILURE);
-	}
-	if (fstat(fd, &buf) < 0)
-	{
-		perror("fstat");
-		return(EXIT_FAILURE);
-	}
-	if ((ptr = mmap(0, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
-	{
-		perror("mmap");
-		return (EXIT_FAILURE);
-	}
-	nm(ptr);
-	if (munmap(ptr, buf.st_size) < 0)
-	{
-		perror("munmap");
-		return(EXIT_FAILURE);
+		i = 0;
+		while (++i < ac)
+			iterate_over_files(av[i]);
 	}
 	return (EXIT_SUCCESS);
 }
