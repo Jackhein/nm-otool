@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 12:43:42 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/21 19:00:04 by ademenet         ###   ########.fr       */
+/*   Updated: 2017/12/22 10:20:29 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct		s_sym
 ** DISPLAY
 */
 
-void			print_output(int nsyms, int symoff, int stroff, char *ptr);
+void			print_output_64(int nsyms, int symoff, int stroff, char *ptr);
 
 /*
 ** FT_NM
@@ -75,6 +75,7 @@ void			handle_64(char *ptr);
 
 int				error_display(t_err error);
 void		    usage(const char *file_name);
+int				is_32(uint32_t magic);
 int				is_64(uint32_t magic);
 int				is_swap(uint32_t magic);
 

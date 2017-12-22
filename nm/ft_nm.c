@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:49:57 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/21 19:00:13 by ademenet         ###   ########.fr       */
+/*   Updated: 2017/12/22 10:19:29 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void		nm(char *ptr, char *file)
 static int		iterate_over_files(char *file)
 {
 	int			fd;
+	char		*ptr;
 	struct stat	buf;
 	
 	if ((fd = open(file, O_RDONLY)) < 0)
@@ -57,15 +58,18 @@ static int		iterate_over_files(char *file)
 int				main(int ac, char **av)
 {
 	int			i;
-	char		*ptr;
 
 	if (ac == 1)
-		iterate_over_file("a.out");
+		iterate_over_files("a.out");
 	else
 	{
 		i = 0;
 		while (++i < ac)
+		{
+			if (ac > 2)
+				ft_printf("\n%s:\n", av[i]);
 			iterate_over_files(av[i]);
+		}
 	}
 	return (EXIT_SUCCESS);
 }
