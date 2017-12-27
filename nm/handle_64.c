@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/27 15:56:46 by ademenet         ###   ########.fr       */
+/*   Updated: 2017/12/27 15:59:16 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,10 @@ void				print_output_64(int nsyms, int symoff, int stroff,
 	array = (void *)ptr + symoff;
 	stringtable = (void *)ptr + stroff;
 	// TODO checker les ranges
-	// TODO sort selon strx
 	array = sort_64(stringtable, array, nsyms);
 	sort_value_64(stringtable, array, nsyms);
 	for (i = 0; i < nsyms; ++i)
 	{
-		// Get type
 		const char			*n_type;
 		n_type = NULL;
 		uint8_t 			mask;
@@ -126,7 +124,7 @@ void				print_output_64(int nsyms, int symoff, int stroff,
 			// nous nous trouvons >>> Trouver un moyen de determiner
 			// dans quelle section je me trouve vraiment (T, d, S, etc.)
 			n_type = "N_SECT";
-			ft_printf("n_sect : %d\n", array[i].n_sect);
+			// ft_printf("n_sect : %d\n", array[i].n_sect);
 		}
 		else if (mask == N_PBUD)
 			n_type = "N_PBUD";
@@ -134,9 +132,10 @@ void				print_output_64(int nsyms, int symoff, int stroff,
 			n_type = "N_INDR";
 		else
 			return ;
-		// End Get type
-
-		ft_printf("%015llx ", array[i].n_value);
+		if (array[i].n_value == 0)
+			ft_printf("%15llx ", array[i].n_value);
+		else
+			ft_printf("%015llx ", array[i].n_value);
 		ft_printf("%s ", n_type);
 		ft_printf("%s\n", stringtable + array[i].n_un.n_strx);
 	}
