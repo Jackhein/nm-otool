@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/27 12:02:48 by ademenet         ###   ########.fr       */
+/*   Updated: 2017/12/27 15:56:46 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,31 @@ int					check_addr_error(struct load_command *lc)
 {
 	// To be implemented
 	return (0);
+}
+
+void				sort_value_64(char *stringtable, struct nlist_64 *sort,
+					int nsyms)
+{
+	int				i;
+	int				flag;
+	struct nlist_64	temp;
+
+	while (++i < nsyms - 1)
+	{
+		i = -1;
+		if (ft_strcmp(stringtable + sort[i].n_un.n_strx,
+		stringtable + sort[i].n_un.n_strx) == 0 && 
+		(sort[i].n_un.n_strx != 0 || sort[i + 1].n_un.n_strx != 0))
+		{
+			if (sort[i].n_un.n_strx > sort[i + 1].n_un.n_strx)
+			{
+				temp = sort[i + 1];
+				sort[i + 1] = sort[i];
+				sort[i] = temp;
+			}
+		}
+	}
+	return ;
 }
 
 struct nlist_64		*init_sort_64(struct nlist_64 *array,
@@ -79,9 +104,9 @@ void				print_output_64(int nsyms, int symoff, int stroff,
 	array = (void *)ptr + symoff;
 	stringtable = (void *)ptr + stroff;
 	// TODO checker les ranges
-	// TODO sort
 	// TODO sort selon strx
 	array = sort_64(stringtable, array, nsyms);
+	sort_value_64(stringtable, array, nsyms);
 	for (i = 0; i < nsyms; ++i)
 	{
 		// Get type
