@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 12:43:42 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/22 10:20:29 by ademenet         ###   ########.fr       */
+/*   Updated: 2017/12/27 11:38:57 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef enum		e_err
 	FSTAT,
 	MMAP,
 	MUNMAP,
-	MAGIC_NUM
+	MAGIC_NUM,
+	ADDR_ERR
 }					t_err;
 
 typedef struct		s_sym

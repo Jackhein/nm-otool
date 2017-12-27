@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/22 18:24:39 by ademenet         ###   ########.fr       */
+/*   Updated: 2017/12/27 12:02:48 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int					check_addr_error(struct load_command *lc)
 	return (0);
 }
 
-struct nlist_64		*init_sort_64(struct nlist_64 *sort, struct nlist_64 *array,
+struct nlist_64		*init_sort_64(struct nlist_64 *array,
 					int nsyms)
 {
 	int				i;
@@ -31,6 +31,16 @@ struct nlist_64		*init_sort_64(struct nlist_64 *sort, struct nlist_64 *array,
 	return (sort);
 }
 
+void	print_debug(char *stringtable, struct nlist_64 *sort, int nsyms) {
+	int i = 0;
+	while (i < nsyms)
+	{
+		fprintf(stderr, "sorted %d : %s\n", i, stringtable + sort[i].n_un.n_strx);
+		i++;
+	}
+
+}
+
 struct nlist_64		*sort_64(char *stringtable, struct nlist_64 *array, 
 					int nsyms)
 {
@@ -40,16 +50,17 @@ struct nlist_64		*sort_64(char *stringtable, struct nlist_64 *array,
 	struct nlist_64	*sort;
 
 	i = -1;
-	sort = init_sort_64(sort, array, nsyms);
+
+	sort = init_sort_64(array, nsyms);
 	while (++i < nsyms)
 	{
 		j = -1;
 		while (++j < nsyms)
 		{
-			if (ft_strcmp(stringtable + sort[i].n_un.n_strx, 
+			if (ft_strcmp(stringtable + sort[i].n_un.n_strx,
 			stringtable + sort[j].n_un.n_strx) < 0)
 			{
-				temp = array[i];
+				temp = sort[i];
 				sort[i] = sort[j];
 				sort[j] = temp;
 			}
@@ -69,6 +80,8 @@ void				print_output_64(int nsyms, int symoff, int stroff,
 	stringtable = (void *)ptr + stroff;
 	// TODO checker les ranges
 	// TODO sort
+	// TODO sort selon strx
+	array = sort_64(stringtable, array, nsyms);
 	for (i = 0; i < nsyms; ++i)
 	{
 		// Get type
@@ -106,8 +119,8 @@ void				print_output_64(int nsyms, int symoff, int stroff,
 
 void				handle_64(char *ptr)
 {
-	int						ncmds;
 	int						i;
+	int						ncmds;
 	struct mach_header_64	*header;
 	struct load_command		*lc;
 	struct symtab_command	*sym;
@@ -126,7 +139,7 @@ void				handle_64(char *ptr)
 		lc = (void *)lc + lc->cmdsize;
 		if (check_addr_error(lc))
 		{
-			error_display(ADDR_ERR)
+			error_display(ADDR_ERR);
 			return ;
 		}
 	}
