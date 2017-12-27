@@ -6,11 +6,14 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/27 15:59:16 by ademenet         ###   ########.fr       */
+/*   Updated: 2017/12/27 17:44:33 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_nm.h"
+
+// TODO faire toutes les verifications d'erreur
+// TODO faire une liste avec tous les elements a display
 
 int					check_addr_error(struct load_command *lc)
 {
@@ -21,9 +24,9 @@ int					check_addr_error(struct load_command *lc)
 void				sort_value_64(char *stringtable, struct nlist_64 *sort,
 					int nsyms)
 {
-	int				i;
-	int				flag;
-	struct nlist_64	temp;
+	int						i;
+	int						flag;
+	struct nlist_64			temp;
 
 	while (++i < nsyms - 1)
 	{
@@ -46,8 +49,8 @@ void				sort_value_64(char *stringtable, struct nlist_64 *sort,
 struct nlist_64		*init_sort_64(struct nlist_64 *array,
 					int nsyms)
 {
-	int				i;
-	struct nlist_64	*sort;
+	int						i;
+	struct nlist_64			*sort;
 	
 	i = -1;
 	sort = (struct nlist_64 *)malloc(nsyms * sizeof(struct nlist_64));
@@ -56,26 +59,15 @@ struct nlist_64		*init_sort_64(struct nlist_64 *array,
 	return (sort);
 }
 
-void	print_debug(char *stringtable, struct nlist_64 *sort, int nsyms) {
-	int i = 0;
-	while (i < nsyms)
-	{
-		fprintf(stderr, "sorted %d : %s\n", i, stringtable + sort[i].n_un.n_strx);
-		i++;
-	}
-
-}
-
 struct nlist_64		*sort_64(char *stringtable, struct nlist_64 *array, 
 					int nsyms)
 {
-	int				i;
-	int				j;
-	struct nlist_64	temp;
-	struct nlist_64	*sort;
+	int						i;
+	int						j;
+	struct nlist_64			temp;
+	struct nlist_64			*sort;
 
 	i = -1;
-
 	sort = init_sort_64(array, nsyms);
 	while (++i < nsyms)
 	{
@@ -97,13 +89,12 @@ struct nlist_64		*sort_64(char *stringtable, struct nlist_64 *array,
 void				print_output_64(int nsyms, int symoff, int stroff, 
 					char *ptr)
 {
-	int					i;
-	char				*stringtable;
-	struct nlist_64		*array;
+	int						i;
+	char					*stringtable;
+	struct nlist_64			*array;
 
 	array = (void *)ptr + symoff;
 	stringtable = (void *)ptr + stroff;
-	// TODO checker les ranges
 	array = sort_64(stringtable, array, nsyms);
 	sort_value_64(stringtable, array, nsyms);
 	for (i = 0; i < nsyms; ++i)
@@ -117,15 +108,7 @@ void				print_output_64(int nsyms, int symoff, int stroff,
 		else if (mask == N_ABS)
 			n_type = "N_ABS";
 		else if (mask == N_SECT)
-		{
-			// TODO faire get_section qui recupere la section
-			// cf. nlist.h l.146
-			// n_sect est un ordinal pour trouver dans quelle section
-			// nous nous trouvons >>> Trouver un moyen de determiner
-			// dans quelle section je me trouve vraiment (T, d, S, etc.)
 			n_type = "N_SECT";
-			// ft_printf("n_sect : %d\n", array[i].n_sect);
-		}
 		else if (mask == N_PBUD)
 			n_type = "N_PBUD";
 		else if (mask == N_INDR)
@@ -133,7 +116,7 @@ void				print_output_64(int nsyms, int symoff, int stroff,
 		else
 			return ;
 		if (array[i].n_value == 0)
-			ft_printf("%15llx ", array[i].n_value);
+			ft_printf("%15llx ", '\0');
 		else
 			ft_printf("%015llx ", array[i].n_value);
 		ft_printf("%s ", n_type);
