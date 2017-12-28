@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/27 17:44:33 by ademenet         ###   ########.fr       */
+/*   Updated: 2017/12/28 13:17:56 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 // TODO faire toutes les verifications d'erreur
 // TODO faire une liste avec tous les elements a display
 
-int					check_addr_error(struct load_command *lc)
+int						check_addr_error(struct load_command *lc)
 {
 	// To be implemented
 	return (0);
 }
 
-void				sort_value_64(char *stringtable, struct nlist_64 *sort,
-					int nsyms)
+void					sort_value_64(char *stringtable, struct nlist_64 *sort,
+						int nsyms)
 {
 	int						i;
 	int						flag;
@@ -46,8 +46,8 @@ void				sort_value_64(char *stringtable, struct nlist_64 *sort,
 	return ;
 }
 
-struct nlist_64		*init_sort_64(struct nlist_64 *array,
-					int nsyms)
+static struct nlist_64	*init_sort_64(struct nlist_64 *array,
+						int nsyms)
 {
 	int						i;
 	struct nlist_64			*sort;
@@ -59,8 +59,8 @@ struct nlist_64		*init_sort_64(struct nlist_64 *array,
 	return (sort);
 }
 
-struct nlist_64		*sort_64(char *stringtable, struct nlist_64 *array, 
-					int nsyms)
+struct nlist_64			*sort_64(char *stringtable, struct nlist_64 *array, 
+						int nsyms)
 {
 	int						i;
 	int						j;
@@ -86,45 +86,7 @@ struct nlist_64		*sort_64(char *stringtable, struct nlist_64 *array,
 	return (sort);
 }
 
-void				print_output_64(int nsyms, int symoff, int stroff, 
-					char *ptr)
-{
-	int						i;
-	char					*stringtable;
-	struct nlist_64			*array;
-
-	array = (void *)ptr + symoff;
-	stringtable = (void *)ptr + stroff;
-	array = sort_64(stringtable, array, nsyms);
-	sort_value_64(stringtable, array, nsyms);
-	for (i = 0; i < nsyms; ++i)
-	{
-		const char			*n_type;
-		n_type = NULL;
-		uint8_t 			mask;
-		mask = array[i].n_type & N_TYPE;
-		if (mask == N_UNDF)
-			n_type = "N_UNDF";
-		else if (mask == N_ABS)
-			n_type = "N_ABS";
-		else if (mask == N_SECT)
-			n_type = "N_SECT";
-		else if (mask == N_PBUD)
-			n_type = "N_PBUD";
-		else if (mask == N_INDR)
-			n_type = "N_INDR";
-		else
-			return ;
-		if (array[i].n_value == 0)
-			ft_printf("%15llx ", '\0');
-		else
-			ft_printf("%015llx ", array[i].n_value);
-		ft_printf("%s ", n_type);
-		ft_printf("%s\n", stringtable + array[i].n_un.n_strx);
-	}
-}
-
-void				handle_64(char *ptr)
+void					handle_64(char *ptr)
 {
 	int						i;
 	int						ncmds;
@@ -132,10 +94,11 @@ void				handle_64(char *ptr)
 	struct load_command		*lc;
 	struct symtab_command	*sym;
 
+	i = 0;
 	header = (struct mach_header_64 *)ptr;
 	ncmds = header->ncmds;
 	lc = (void *)ptr + sizeof(*header);
-	while (i++ < ncmds)
+	while (++i < ncmds)
 	{
 		if (lc->cmd == LC_SYMTAB)
 		{
@@ -146,7 +109,7 @@ void				handle_64(char *ptr)
 		lc = (void *)lc + lc->cmdsize;
 		if (check_addr_error(lc))
 		{
-			error_display(ADDR_ERR);
+			error_display("Invalid file.");
 			return ;
 		}
 	}

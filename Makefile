@@ -13,10 +13,12 @@ OBJ_DIR_NM = 		./obj_nm
 
 SRC_NM = 			display.c\
 					ft_nm.c\
-					get_type.c\
 					handle_32.c\
 					handle_64.c\
+					handle_fat.c\
+					handle_lib.c\
 					utils.c
+					# get_type.c\
 
 # SRC_OTOOL = 		
 
