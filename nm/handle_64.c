@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/28 13:17:56 by ademenet         ###   ########.fr       */
+/*   Updated: 2017/12/28 14:54:10 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ struct nlist_64			*sort_64(char *stringtable, struct nlist_64 *array,
 void					handle_64(char *ptr)
 {
 	int						i;
-	int						ncmds;
+	int						ncmds; // je pourrais supprimer cette var
 	struct mach_header_64	*header;
 	struct load_command		*lc;
 	struct symtab_command	*sym;

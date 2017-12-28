@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 12:43:42 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/28 13:22:47 by ademenet         ###   ########.fr       */
+/*   Updated: 2017/12/28 13:26:46 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,6 @@
 
 char				*g_filename;
 // int					g_endianness = 0;
-
-typedef enum		e_err
-{
-	OPEN,
-	FSTAT,
-	MMAP,
-	MUNMAP,
-	MAGIC_NUM,
-	ADDR_ERR
-}					t_err;
 
 typedef struct		s_sym
 {
