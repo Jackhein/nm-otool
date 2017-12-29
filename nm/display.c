@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:42:01 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/28 15:29:25 by ademenet         ###   ########.fr       */
+/*   Updated: 2017/12/29 15:14:33 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ void				print_output_64(int nsyms, int symoff, int stroff,
 		// else
 		// 	return ;
 		if (array[i].n_value == 0)
-			ft_printf("%15llx ", '\0');
+			ft_printf("%15llx ", ' ');
 		else
 			ft_printf("%015llx ", array[i].n_value);
         type = get_type_64(array[i].n_sect); // va chercher la lettre qu'il faut
-		ft_printf("%s ", type);
+		ft_printf("%c ", type);
 		ft_printf("%s\n", stringtable + array[i].n_un.n_strx);
 	}
 }

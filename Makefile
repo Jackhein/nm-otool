@@ -11,15 +11,14 @@ INC_NM =			./inc/ft_nm.h
 OBJ_DIR_NM = 		./obj_nm
 # OBJ_DIR_OTOOL = 	./obj_otool
 
-SRC_NM = 			display.c\
-					ft_nm.c\
+SRC_NM = 			ft_nm.c\
+					get_type.c\
 					handle_32.c\
 					handle_64.c\
 					handle_fat.c\
 					handle_lib.c\
 					utils.c
-					# get_type.c\
-
+# display.c\
 # SRC_OTOOL = 		
 
 OBJ_NM = 			$(addprefix $(OBJ_DIR_NM)/,$(SRC_NM:.c=.o))

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 12:43:42 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/28 13:26:46 by ademenet         ###   ########.fr       */
+/*   Updated: 2017/12/29 14:18:56 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ char				*g_filename;
 
 typedef struct		s_sym
 {
-	uint64_t		value;
-	char			type;
-	char*			name;
-	struct s_sym	*next;
+	int				text;
+	int				data;
+	int				bss;
 }					t_sym;
 
 /*
 ** DISPLAY
 */
 
-void			print_output_64(int nsyms, int symoff, int stroff, char *ptr);
+void			print_output_64(int nsyms, int symoff, int stroff, 
+				t_sym *symtab, char *ptr);
 
 /*
 ** FT_NM
@@ -50,8 +50,8 @@ void			print_output_64(int nsyms, int symoff, int stroff, char *ptr);
 ** GET_TYPE
 */
 
-// char			get_type(uint8_t n_type, uint8_t n_sect, int n_value, 
-				// t_sym *symbol);
+char			get_type(uint8_t n_type, uint8_t n_sect, int n_value, 
+				t_sym *symbol);
 
 /*
 ** HANDLE_32
