@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/29 15:18:42 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/03 16:51:52 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ void				print_output_64(int nsyms, int symoff, int stroff,
 					t_sym *symtab, char *ptr)
 {
 	int						i;
-    char                    type;
 	char					*stringtable;
 	struct nlist_64			*array;
 
@@ -144,9 +143,8 @@ void				print_output_64(int nsyms, int symoff, int stroff,
 			ft_printf("%16c ", ' ');
 		else
 			ft_printf("%016llx ", array[i].n_value);
-        type = get_type(array[i].n_type, array[i].n_sect, array[i].n_value,
-			symtab);
-		ft_printf("%c ", type);
+		ft_printf("%c ", get_type(array[i].n_type, array[i].n_sect,
+			array[i].n_value, symtab));
 		ft_printf("%s\n", stringtable + array[i].n_un.n_strx);
 	}
 }
