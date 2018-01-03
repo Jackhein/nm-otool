@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/03 16:51:52 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/03 17:04:25 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,34 @@ struct nlist_64			*sort_64(char *stringtable, struct nlist_64 *array,
 	return (sort);
 }
 
+void				get_symtab_sec(t_sym *symtab, 
+					struct segment_command_64 *seg, struct section_64 *sec, 
+					int *k)
+{
+	int							j;
+
+	j = -1;
+	while (++j < seg->nsects)
+	{
+		if (ft_strcmp(sec->sectname, SECT_TEXT) == 0 && 
+			ft_strcmp(sec->segname, SEG_TEXT) == 0)
+			symtab->text = (*k) + 1;
+		else if (ft_strcmp(sec->sectname, SECT_DATA) == 0 && 
+			ft_strcmp(sec->segname, SEG_DATA) == 0)
+			symtab->data = (*k) + 1;
+		else if (ft_strcmp(sec->sectname, SECT_BSS) == 0 && 
+			ft_strcmp(sec->segname, SEG_DATA) == 0)
+			symtab->bss = (*k) + 1;
+		sec = (void *)sec + sizeof(struct section_64);
+		(*k)++;
+	}
+	return ;
+}
+
 void				get_symtab(t_sym *symtab, struct mach_header_64 *header,
 					struct load_command *lc)
 {
 	int							i;
-	int							j;
 	int							k;
 	struct segment_command_64	*seg;
 	struct section_64			*sec;
@@ -104,21 +127,7 @@ void				get_symtab(t_sym *symtab, struct mach_header_64 *header,
 			seg = (struct segment_command_64 *)lc;
 			sec = (struct section_64 *)((void *)seg +
 				sizeof(struct segment_command_64));
-			j = -1;
-			while (++j < seg->nsects)
-			{
-				if (ft_strcmp(sec->sectname, SECT_TEXT) == 0 && 
-					ft_strcmp(sec->segname, SEG_TEXT) == 0)
-					symtab->text = k + 1;
-				else if (ft_strcmp(sec->sectname, SECT_DATA) == 0 && 
-					ft_strcmp(sec->segname, SEG_DATA) == 0)
-					symtab->data = k + 1;
-				else if (ft_strcmp(sec->sectname, SECT_BSS) == 0 && 
-					ft_strcmp(sec->segname, SEG_DATA) == 0)
-					symtab->bss = k + 1;
-				sec = (void *)sec + sizeof(struct section_64);
-				k++;
-			}
+			get_symtab_sec(symtab, seg, sec, &k);
 		}
 		lc = (void *)lc + lc->cmdsize;
 	}
