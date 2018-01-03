@@ -6,102 +6,33 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/03 17:04:25 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/03 17:45:27 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_nm.h"
 
-// TODO faire toutes les verifications d'erreur
-// TODO faire une liste avec tous les elements a display
-
-int						check_addr_error(struct load_command *lc)
+int								check_addr_error(struct load_command *lc)
 {
-	// To be implemented
 	return (0);
 }
 
-void					sort_value_64(char *stringtable, struct nlist_64 *sort,
-						int nsyms)
-{
-	int						i;
-	int						flag;
-	struct nlist_64			temp;
-
-	while (++i < nsyms - 1)
-	{
-		i = -1;
-		if (ft_strcmp(stringtable + sort[i].n_un.n_strx,
-		stringtable + sort[i].n_un.n_strx) == 0 && 
-		(sort[i].n_un.n_strx != 0 || sort[i + 1].n_un.n_strx != 0))
-		{
-			if (sort[i].n_un.n_strx > sort[i + 1].n_un.n_strx)
-			{
-				temp = sort[i + 1];
-				sort[i + 1] = sort[i];
-				sort[i] = temp;
-			}
-		}
-	}
-	return ;
-}
-
-static struct nlist_64	*init_sort_64(struct nlist_64 *array,
-						int nsyms)
-{
-	int						i;
-	struct nlist_64			*sort;
-	
-	i = -1;
-	sort = (struct nlist_64 *)malloc(nsyms * sizeof(struct nlist_64));
-	while (++i < nsyms)
-		sort[i] = array[i];
-	return (sort);
-}
-
-struct nlist_64			*sort_64(char *stringtable, struct nlist_64 *array, 
-						int nsyms)
-{
-	int						i;
-	int						j;
-	struct nlist_64			temp;
-	struct nlist_64			*sort;
-
-	i = -1;
-	sort = init_sort_64(array, nsyms);
-	while (++i < nsyms)
-	{
-		j = -1;
-		while (++j < nsyms)
-		{
-			if (ft_strcmp(stringtable + sort[i].n_un.n_strx,
-			stringtable + sort[j].n_un.n_strx) < 0)
-			{
-				temp = sort[i];
-				sort[i] = sort[j];
-				sort[j] = temp;
-			}
-		}
-	}
-	return (sort);
-}
-
-void				get_symtab_sec(t_sym *symtab, 
-					struct segment_command_64 *seg, struct section_64 *sec, 
-					int *k)
+void							get_symtab_sec(t_sym *symtab,
+								struct segment_command_64 *seg,
+								struct section_64 *sec, int *k)
 {
 	int							j;
 
 	j = -1;
 	while (++j < seg->nsects)
 	{
-		if (ft_strcmp(sec->sectname, SECT_TEXT) == 0 && 
+		if (ft_strcmp(sec->sectname, SECT_TEXT) == 0 &&
 			ft_strcmp(sec->segname, SEG_TEXT) == 0)
 			symtab->text = (*k) + 1;
-		else if (ft_strcmp(sec->sectname, SECT_DATA) == 0 && 
+		else if (ft_strcmp(sec->sectname, SECT_DATA) == 0 &&
 			ft_strcmp(sec->segname, SEG_DATA) == 0)
 			symtab->data = (*k) + 1;
-		else if (ft_strcmp(sec->sectname, SECT_BSS) == 0 && 
+		else if (ft_strcmp(sec->sectname, SECT_BSS) == 0 &&
 			ft_strcmp(sec->segname, SEG_DATA) == 0)
 			symtab->bss = (*k) + 1;
 		sec = (void *)sec + sizeof(struct section_64);
@@ -110,8 +41,9 @@ void				get_symtab_sec(t_sym *symtab,
 	return ;
 }
 
-void				get_symtab(t_sym *symtab, struct mach_header_64 *header,
-					struct load_command *lc)
+void							get_symtab(t_sym *symtab,
+								struct mach_header_64 *header,
+								struct load_command *lc)
 {
 	int							i;
 	int							k;
@@ -134,19 +66,19 @@ void				get_symtab(t_sym *symtab, struct mach_header_64 *header,
 	return ;
 }
 
-void				print_output_64(int nsyms, int symoff, int stroff, 
-					t_sym *symtab, char *ptr)
+void							print_output_64(struct symtab_command *sym,
+								t_sym *symtab, char *ptr)
 {
-	int						i;
-	char					*stringtable;
-	struct nlist_64			*array;
+	int							i;
+	char						*stringtable;
+	struct nlist_64				*array;
 
 	i = -1;
-	stringtable = (void *)ptr + stroff;
-    array = (void *)ptr + symoff;
-	array = sort_64(stringtable, array, nsyms);
-	sort_value_64(stringtable, array, nsyms);
-    while (++i < nsyms)
+	stringtable = (void *)ptr + sym->stroff;
+	array = (void *)ptr + sym->symoff;
+	array = sort_64(stringtable, array, sym->nsyms);
+	sort_value_64(stringtable, array, sym->nsyms);
+	while (++i < sym->nsyms)
 	{
 		if (array[i].n_value == 0)
 			ft_printf("%16c ", ' ');
@@ -158,13 +90,13 @@ void				print_output_64(int nsyms, int symoff, int stroff,
 	}
 }
 
-void					handle_64(char *ptr)
+void							handle_64(char *ptr)
 {
-	int						i;
-	struct mach_header_64	*header;
-	struct load_command		*lc;
-	struct symtab_command	*sym;
-	t_sym					symtab;
+	int							i;
+	struct mach_header_64		*header;
+	struct load_command			*lc;
+	struct symtab_command		*sym;
+	t_sym						symtab;
 
 	i = -1;
 	header = (struct mach_header_64 *)ptr;
@@ -175,7 +107,7 @@ void					handle_64(char *ptr)
 		if (lc->cmd == LC_SYMTAB)
 		{
 			sym = (struct symtab_command *)lc;
-			print_output_64(sym->nsyms, sym->symoff, sym->stroff, &symtab, ptr);
+			print_output_64(sym, &symtab, ptr);
 			break ;
 		}
 		lc = (void *)lc + lc->cmdsize;
