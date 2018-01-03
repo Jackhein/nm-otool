@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 12:43:42 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/03 17:49:38 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/03 18:23:14 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ typedef struct		s_sym
 ** DISPLAY
 */
 
-void			print_output_64(struct symtab_command *sym,
-				t_sym *symtab, char *ptr);
 
 /*
 ** FT_NM
@@ -57,12 +55,17 @@ char			get_type(uint8_t n_type, uint8_t n_sect, int n_value,
 ** HANDLE_32
 */
 
+void			print_output_32(struct symtab_command *sym,
+				t_sym *symtab, char *ptr);
 void			handle_32(char *ptr);
 
 /*
 ** HANDLE_64
 */
 
+int				check_addr_error(struct load_command *lc);
+void			print_output_64(struct symtab_command *sym,
+				t_sym *symtab, char *ptr);
 void			handle_64(char *ptr);
 
 /*
@@ -76,6 +79,15 @@ void			handle_fat(char *ptr);
 */
 
 void			handle_lib(char *ptr);
+
+/*
+** SORT_32
+*/
+
+void			sort_value_32(char *stringtable, struct nlist *sort,
+				int nsyms);
+struct nlist	*sort_32(char *stringtable, struct nlist *array,
+				int nsyms);
 
 /*
 ** SORT_64

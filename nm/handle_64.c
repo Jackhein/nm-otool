@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/03 17:45:27 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/03 18:24:54 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int								check_addr_error(struct load_command *lc)
 	return (0);
 }
 
-void							get_symtab_sec(t_sym *symtab,
+void							get_symtab_sec_64(t_sym *symtab,
 								struct segment_command_64 *seg,
 								struct section_64 *sec, int *k)
 {
@@ -41,7 +41,7 @@ void							get_symtab_sec(t_sym *symtab,
 	return ;
 }
 
-void							get_symtab(t_sym *symtab,
+void							get_symtab_64(t_sym *symtab,
 								struct mach_header_64 *header,
 								struct load_command *lc)
 {
@@ -59,7 +59,7 @@ void							get_symtab(t_sym *symtab,
 			seg = (struct segment_command_64 *)lc;
 			sec = (struct section_64 *)((void *)seg +
 				sizeof(struct segment_command_64));
-			get_symtab_sec(symtab, seg, sec, &k);
+			get_symtab_sec_64(symtab, seg, sec, &k);
 		}
 		lc = (void *)lc + lc->cmdsize;
 	}
@@ -101,7 +101,7 @@ void							handle_64(char *ptr)
 	i = -1;
 	header = (struct mach_header_64 *)ptr;
 	lc = (void *)ptr + sizeof(*header);
-	get_symtab(&symtab, header, lc);
+	get_symtab_64(&symtab, header, lc);
 	while (++i < header->ncmds)
 	{
 		if (lc->cmd == LC_SYMTAB)

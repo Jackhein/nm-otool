@@ -17,6 +17,7 @@ SRC_NM = 			ft_nm.c\
 					handle_64.c\
 					handle_fat.c\
 					handle_lib.c\
+					sort_32.c\
 					sort_64.c\
 					utils.c
 # display.c\
