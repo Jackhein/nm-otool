@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:49:57 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/03 17:21:48 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/04 11:29:51 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void		nm(char *ptr)
 	else if (magic_number == FAT_MAGIC || magic_number == FAT_CIGAM)
 		handle_fat(ptr);
 	else
-		error_display("No such magic number.");
+		error_display("The file was not recognized as a valid object file.");
 }
 
 static int		iterate_over_files(void)
