@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 12:43:42 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/03 18:23:14 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/04 15:49:44 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <ar.h>
 # include <mach-o/fat.h>
+# include <mach-o/ranlib.h>
 # include "../../libft/libft.h"
 # include "../../libft/ft_printf/include/fpf_printf.h"
 
@@ -43,6 +44,8 @@ typedef struct		s_sym
 /*
 ** FT_NM
 */
+
+void			nm(char *ptr);
 
 /*
 ** GET_TYPE
