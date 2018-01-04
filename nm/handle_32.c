@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/03 18:32:54 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/04 10:27:31 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void							get_symtab_32(t_sym *symtab,
 	k = 0;
 	while (++i < header->ncmds)
 	{
-		if (lc->cmd == LC_SEGMENT_64)
+		if (lc->cmd == LC_SEGMENT)
 		{
 			seg = (struct segment_command *)lc;
 			sec = (struct section *)((void *)seg +
-				sizeof(struct segment_command_64));
+				sizeof(struct segment_command));
 			get_symtab_sec_32(symtab, seg, sec, &k);
 		}
 		lc = (void *)lc + lc->cmdsize;
