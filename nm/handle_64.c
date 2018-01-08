@@ -6,18 +6,13 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/05 16:38:56 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/08 17:59:58 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_nm.h"
 
-int								check_addr_error(struct load_command *lc)
-{
-	return (0);
-}
-
-void							get_symtab_sec_64(t_sym *symtab,
+static void						get_symtab_sec_64(t_sym *symtab,
 								struct segment_command_64 *seg,
 								struct section_64 *sec, int *k)
 {
@@ -41,7 +36,7 @@ void							get_symtab_sec_64(t_sym *symtab,
 	return ;
 }
 
-void							get_symtab_64(t_sym *symtab,
+static void						get_symtab_64(t_sym *symtab,
 								struct mach_header_64 *header,
 								struct load_command *lc)
 {
@@ -66,16 +61,16 @@ void							get_symtab_64(t_sym *symtab,
 	return ;
 }
 
-void							print_output_64(struct symtab_command *sym,
+int								print_output_64(struct symtab_command *sym,
 								t_sym *symtab, char *ptr)
 {
-	int							i;
 	char						*stringtable;
 	struct nlist_64				*array;
 
-	i = -1;
 	stringtable = (void *)ptr + sym->stroff;
 	array = (void *)ptr + sym->symoff;
+	if (check(stringtable) || check(array))
+		return(error_display("File truncated or someway invalid."));
 	array = sort_64(stringtable, array, sym->nsyms);
 	sort_value_64(stringtable, array, sym->nsyms);
 	// getchar();
@@ -97,7 +92,7 @@ void							print_output_64(struct symtab_command *sym,
 	// }
 }
 
-void							handle_64(char *ptr)
+int							handle_64(char *ptr)
 {
 	int							i;
 	struct mach_header_64		*header;
@@ -118,10 +113,8 @@ void							handle_64(char *ptr)
 			break ;
 		}
 		lc = (void *)lc + lc->cmdsize;
-		if (check_addr_error(lc))
-		{
-			error_display("Invalid file.");
-			return ;
-		}
+		if (check(lc))
+			return(error_display("Invalid file."));
 	}
+	return (0);
 }

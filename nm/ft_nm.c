@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:49:57 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/04 11:29:51 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/08 15:03:54 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 **
 */
 
-static void		nm(char *ptr)
+void			nm(char *ptr)
 {
 	int			magic_number;
 
 	magic_number = *(int *)ptr;
-	// g_endianness = is_swap(magic_number);
+	g_env.endianness = is_swap(magic_number);
 	if (!ft_strncmp(ptr, ARMAG, SARMAG))
 		handle_lib(ptr);
 	else if (magic_number == MH_MAGIC_64 || magic_number == MH_CIGAM_64)

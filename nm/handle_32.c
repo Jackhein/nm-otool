@@ -6,13 +6,13 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/05 16:38:18 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/08 15:32:36 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_nm.h"
 
-void							get_symtab_sec_32(t_sym *symtab,
+static void						get_symtab_sec_32(t_sym *symtab,
 								struct segment_command *seg,
 								struct section *sec, int *k)
 {
@@ -36,7 +36,7 @@ void							get_symtab_sec_32(t_sym *symtab,
 	return ;
 }
 
-void							get_symtab_32(t_sym *symtab,
+static void						get_symtab_32(t_sym *symtab,
 								struct mach_header *header,
 								struct load_command *lc)
 {
@@ -110,7 +110,7 @@ void							handle_32(char *ptr)
 			break ;
 		}
 		lc = (void *)lc + lc->cmdsize;
-		if (check_addr_error(lc))
+		if (check(lc))
 		{
 			error_display("Invalid file.");
 			return ;

@@ -6,20 +6,18 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:44:47 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/08 13:41:41 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/08 15:25:02 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_nm.h"
 
-
-int				check_range_addr(void *ptr)
+int				check(void *ptr)
 {
-	if (ptr <= (g_env.buff_addr + g_env.buff_size))
+	if (ptr >= g_env.buff_addr && ptr <= (g_env.buff_addr + g_env.buff_size))
 		return (0);
 	return (1);
 }
-
 
 int				error_display(char *error)
 {
@@ -45,5 +43,7 @@ int				is_64(uint32_t magic)
 
 int				is_swap(uint32_t magic)
 {
-	return (magic == MH_CIGAM || magic == MH_CIGAM_64 || magic == FAT_CIGAM);
+	if (magic == MH_CIGAM || magic == MH_CIGAM_64 || magic == FAT_CIGAM)
+		return (1);
+	return (0);
 }
