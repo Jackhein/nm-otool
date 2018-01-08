@@ -78,20 +78,23 @@ void							print_output_64(struct symtab_command *sym,
 	array = (void *)ptr + sym->symoff;
 	array = sort_64(stringtable, array, sym->nsyms);
 	sort_value_64(stringtable, array, sym->nsyms);
-	while (++i < sym->nsyms)
-	{
-		if (ft_strcmp("radr://5614542", stringtable + array[i].n_un.n_strx)
-			!= 0)
-		{
-			if (array[i].n_value == 0)
-				ft_printf("%16c ", ' ');
-			else
-				ft_printf("%016llx ", array[i].n_value);
-			ft_printf("%c ", get_type(array[i].n_type, array[i].n_sect,
-				array[i].n_value, symtab));
-			ft_printf("%s\n", stringtable + array[i].n_un.n_strx);
-		}
-	}
+	// getchar();
+	return (display_64(sym, stringtable, array, symtab));
+	// while (++i < sym->nsyms)
+	// {
+	// 	if (ft_strcmp("radr://5614542", stringtable + array[i].n_un.n_strx)
+	// 		!= 0 || get_type(array[i].n_type, array[i].n_sect, array[i].n_value,
+	// 		symtab) == '-')
+	// 	{
+	// 		if (array[i].n_value == 0)
+	// 			ft_printf("%16c ", ' ');
+	// 		else
+	// 			ft_printf("%016llx ", array[i].n_value);
+	// 		ft_printf("%c ", get_type(array[i].n_type, array[i].n_sect,
+	// 			array[i].n_value, symtab));
+	// 		ft_printf("%s\n", stringtable + array[i].n_un.n_strx);
+	// 	}
+	// }
 }
 
 void							handle_64(char *ptr)
