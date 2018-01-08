@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/08 17:59:58 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/08 19:10:41 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,23 +73,7 @@ int								print_output_64(struct symtab_command *sym,
 		return(error_display("File truncated or someway invalid."));
 	array = sort_64(stringtable, array, sym->nsyms);
 	sort_value_64(stringtable, array, sym->nsyms);
-	// getchar();
 	return (display_64(sym, stringtable, array, symtab));
-	// while (++i < sym->nsyms)
-	// {
-	// 	if (ft_strcmp("radr://5614542", stringtable + array[i].n_un.n_strx)
-	// 		!= 0 || get_type(array[i].n_type, array[i].n_sect, array[i].n_value,
-	// 		symtab) == '-')
-	// 	{
-	// 		if (array[i].n_value == 0)
-	// 			ft_printf("%16c ", ' ');
-	// 		else
-	// 			ft_printf("%016llx ", array[i].n_value);
-	// 		ft_printf("%c ", get_type(array[i].n_type, array[i].n_sect,
-	// 			array[i].n_value, symtab));
-	// 		ft_printf("%s\n", stringtable + array[i].n_un.n_strx);
-	// 	}
-	// }
 }
 
 int							handle_64(char *ptr)
@@ -114,7 +98,7 @@ int							handle_64(char *ptr)
 		}
 		lc = (void *)lc + lc->cmdsize;
 		if (check(lc))
-			return(error_display("Invalid file."));
+			return (error_display("Invalid file."));
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/08 18:26:00 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/08 19:10:28 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,21 +74,6 @@ int								print_output_32(struct symtab_command *sym,
 	array = sort_32(stringtable, array, sym->nsyms);
 	sort_value_32(stringtable, array, sym->nsyms);
 	return (display_32(sym, stringtable, array, symtab));
-
-	// while (++i < sym->nsyms)
-	// {
-	// 	if (ft_strcmp("radr://5614542", stringtable + array[i].n_un.n_strx)
-	// 		!= 0)
-	// 	{
-	// 		if (array[i].n_value == 0)
-	// 			ft_printf("%8c ", ' ');
-	// 		else
-	// 			ft_printf("%08lx ", array[i].n_value);
-	// 		ft_printf("%c ", get_type(array[i].n_type, array[i].n_sect,
-	// 			array[i].n_value, symtab));
-	// 		ft_printf("%s\n", stringtable + array[i].n_un.n_strx);
-	// 	}
-	// }
 }
 
 int							handle_32(char *ptr)
