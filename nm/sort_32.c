@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 17:05:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/03 18:21:43 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/08 18:08:47 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,27 @@ void						sort_value_32(char *stringtable, struct nlist *sort,
 							int nsyms)
 {
 	int						i;
+	int						j;
 	int						flag;
 	struct nlist			temp;
 
-	while (++i < nsyms - 1)
+	i = 0;
+	while (i < nsyms - 1)
 	{
-		i = -1;
-		if (ft_strcmp(stringtable + sort[i].n_un.n_strx,
-		stringtable + sort[i].n_un.n_strx) == 0 &&
-		(sort[i].n_un.n_strx != 0 || sort[i + 1].n_un.n_strx != 0))
+		j = i + 1;
+		while (ft_strcmp(stringtable + sort[i].n_un.n_strx,
+			stringtable + sort[j].n_un.n_strx) == 0)
 		{
-			if (sort[i].n_un.n_strx > sort[i + 1].n_un.n_strx)
+			if (sort[i].n_un.n_strx > sort[j].n_un.n_strx && 
+				(sort[i].n_un.n_strx != 0 || sort[j].n_un.n_strx != 0))
 			{
-				temp = sort[i + 1];
-				sort[i + 1] = sort[i];
+				temp = sort[j];
+				sort[j] = sort[i];
 				sort[i] = temp;
 			}
+			j++;
 		}
+		i++;
 	}
 	return ;
 }
