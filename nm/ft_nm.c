@@ -40,13 +40,15 @@ static int		iterate_over_files(void)
 	char		*ptr;
 	struct stat	buf;
 
-	if ((fd = open(g_filename, O_RDONLY)) < 0)
+	if ((fd = open(g_env.file, O_RDONLY)) < 0)
 		return (error_display("No such file or directory."));
 	if (fstat(fd, &buf) < 0)
 		return (error_display("An error occured with fstat."));
 	if ((ptr = mmap(0, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0))
 		== MAP_FAILED)
 		return (error_display("An error occured with mmap."));
+	g_env.buff_addr = ptr;
+	g_env.buff_size = buf.st_size;
 	nm(ptr);
 	if (munmap(ptr, buf.st_size) < 0)
 		return (error_display("An error occured with munmap."));
@@ -59,7 +61,7 @@ int				main(int ac, char **av)
 
 	if (ac == 1)
 	{
-		g_filename = "a.out";
+		g_env.file = "a.out";
 		iterate_over_files();
 	}
 	else
@@ -67,9 +69,9 @@ int				main(int ac, char **av)
 		i = 0;
 		while (++i < ac)
 		{
-			g_filename = av[i];
+			g_env.file = av[i];
 			if (ac > 2)
-				ft_printf("\n%s:\n", g_filename);
+				ft_printf("\n%s:\n", g_env.file);
 			iterate_over_files();
 		}
 	}

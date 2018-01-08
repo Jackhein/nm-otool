@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 12:43:42 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/04 15:49:44 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/08 13:45:15 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,15 @@
 # include "../../libft/libft.h"
 # include "../../libft/ft_printf/include/fpf_printf.h"
 
-char				*g_filename;
-// int					g_endianness = 0;
+typedef struct		s_env
+{
+	char			*file;
+	int				endianness;
+	void			*buff_addr;
+	int				buff_size;
+}					t_env;
+
+t_env				g_env;
 
 typedef struct		s_sym
 {
