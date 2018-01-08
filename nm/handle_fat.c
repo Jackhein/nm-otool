@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 12:23:40 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/04 16:00:06 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/08 10:55:14 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void			handle_fat(char *ptr)
 	{
 		header = (struct mach_header_64 *)((void *)ptr +
 			swap_bytes(f_arch->offset));
-		if (swap_bytes(f_arch->cputype == CPU_TYPE_X86_64))
+		if (swap_bytes(f_arch->cputype) == CPU_TYPE_X86_64)
 			break ;
 		f_arch = (void *)f_arch + sizeof(struct fat_arch);
 	}
-	f_header = (void *)ptr + swap_bytes(f_arch->offset);
+	header = (void *)ptr + swap_bytes(f_arch->offset);
 	nm((char *)header);
 	return ;
 }
