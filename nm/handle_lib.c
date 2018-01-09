@@ -6,13 +6,11 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 12:24:32 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 14:52:21 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 15:06:28 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_nm.h"
-
-#include "./inc/dbg.h"
 
 void				display_lib(char *ptr, int *ar_array, int array_size)
 {
