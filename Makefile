@@ -21,7 +21,7 @@ SRC_NM = 			display.c\
 					sort_32.c\
 					sort_64.c\
 					utils.c
-# display.c\
+
 # SRC_OTOOL = 		
 
 OBJ_NM = 			$(addprefix $(OBJ_DIR_NM)/,$(SRC_NM:.c=.o))
@@ -32,8 +32,7 @@ SRC_PATH_NM = 		$(addprefix $(SRC_DIR_NM)/, $(SRC_NM))
 
 CC = gcc
 
-FLAGS = 
-# FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra
 
 I_LIBFT = -I libft/inc/
 
@@ -81,11 +80,5 @@ fclean: clean
 	rm -rf $(OBJ_DIR_NM)
 
 re: fclean all
-
-norme:
-	make norme -C libft
-	@echo "\033[1;34mNm_otool\t\033[1;33mNorminette\t\033[0;32m[OK]\033[0m"
-	# @norminette $(SRC_PATH_NM) $(SRC_PATH_OTOOL) $(INC_NM) $(INC_OTOOL)
-	norminette $(SRC_PATH_NM) $(INC_NM)
 
 .PHONY: re fclean clean all norme res
