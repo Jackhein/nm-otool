@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/08 19:10:28 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 10:56:08 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void						get_symtab_sec_32(t_sym *symtab,
 		else if (ft_strcmp(sec->sectname, SECT_BSS) == 0 &&
 			ft_strcmp(sec->segname, SEG_DATA) == 0)
 			symtab->bss = (*k) + 1;
-		sec = (void *)sec + sizeof(struct section_64);
+		sec = (void *)sec + sizeof(struct section);
 		(*k)++;
 	}
 	return ;
