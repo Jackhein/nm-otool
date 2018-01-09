@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 12:43:42 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/08 18:26:34 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 12:18:09 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,6 @@ struct nlist_64	*sort_64(char *stringtable, struct nlist_64 *array,
 int				check(void *ptr);
 int				error_display(char *error);
 void		    usage(void);
-int				is_32(uint32_t magic);
-int				is_64(uint32_t magic);
 int				is_swap(uint32_t magic);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:44:47 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/08 15:25:02 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 12:17:57 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,6 @@ void			usage(void)
 {
 	ft_printf("Usage: %s [file ...]\n", g_env.file);
 	return ;
-}
-
-int				is_32(uint32_t magic)
-{
-	return (magic == MH_MAGIC || magic == MH_CIGAM);
-}
-
-int				is_64(uint32_t magic)
-{
-	return (magic == MH_MAGIC_64 || magic == MH_CIGAM_64);
 }
 
 int				is_swap(uint32_t magic)
