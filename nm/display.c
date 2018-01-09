@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:42:01 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/08 18:27:13 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 11:15:06 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int							display_64(struct symtab_command *sym,
 		if (ft_strcmp("radr://5614542", stringtable + array[i].n_un.n_strx)
 			!= 0 && type != '-')
 		{
-			if (array[i].n_value == 0)
+			if (array[i].n_value == 0 && (type == 'U' || type == 'u'))
 				ft_printf("%16c %c %s\n", ' ', type,
 					stringtable + array[i].n_un.n_strx);
 			else
@@ -53,7 +53,7 @@ int							display_32(struct symtab_command *sym,
 		if (ft_strcmp("radr://5614542", stringtable + array[i].n_un.n_strx)
 			!= 0 && type != '-')
 		{
-			if (array[i].n_value == 0)
+			if (array[i].n_value == 0 && (type == 'U' || type == 'u'))
 				ft_printf("%8c %c %s\n", ' ', type,
 					stringtable + array[i].n_un.n_strx);
 			else
