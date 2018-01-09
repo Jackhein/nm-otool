@@ -6,15 +6,15 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:49:57 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 16:52:10 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 17:01:21 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_nm.h"
 
-void			nm(char *ptr)
+void				nm(char *ptr)
 {
-	int			magic_number;
+	unsigned int	magic_number;
 
 	magic_number = *(int *)ptr;
 	g_env.endianness = is_swap(magic_number);
@@ -30,11 +30,11 @@ void			nm(char *ptr)
 		error_display("The file was not recognized as a valid object file.");
 }
 
-static int		iterate_over_files(void)
+static int			iterate_over_files(void)
 {
-	int			fd;
-	char		*ptr;
-	struct stat	buf;
+	int				fd;
+	char			*ptr;
+	struct stat		buf;
 
 	if ((fd = open(g_env.file, O_RDONLY)) < 0)
 		return (error_display("No such file or directory."));
@@ -51,9 +51,9 @@ static int		iterate_over_files(void)
 	return (EXIT_SUCCESS);
 }
 
-int				main(int ac, char **av)
+int					main(int ac, char **av)
 {
-	int			i;
+	int				i;
 
 	if (ac == 1)
 	{

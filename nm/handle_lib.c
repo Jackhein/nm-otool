@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 12:24:32 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 16:55:52 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 17:04:21 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static int			get_lib_ar(struct ranlib *ran, int size, char *ptr)
 {
 	int				i;
 	int				j;
-	int				len_array;
 	int				ar_array[size];
 
 	i = -1;
@@ -66,7 +65,6 @@ static int			get_lib_ar(struct ranlib *ran, int size, char *ptr)
 
 int					handle_lib(char *ptr)
 {
-	int				i;
 	int				offset;
 	int				size;
 	void			*offset_tab;

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:42:01 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 16:45:24 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 17:00:28 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int							display_64(struct symtab_command *sym,
 							char *stringtable, struct nlist_64 *array,
 							t_sym *symtab)
 {
-	int						i;
+	uint32_t				i;
 	char					type;
 
 	i = -1;
@@ -42,7 +42,7 @@ int							display_32(struct symtab_command *sym,
 							char *stringtable, struct nlist *array,
 							t_sym *symtab)
 {
-	int						i;
+	uint32_t				i;
 	char					type;
 
 	i = -1;

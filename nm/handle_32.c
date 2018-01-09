@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 16:52:29 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 17:02:48 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void						get_symtab_sec_32(t_sym *symtab,
 								struct segment_command *seg,
 								struct section *sec, int *k)
 {
-	int							j;
+	uint32_t					j;
 
 	j = -1;
 	while (++j < seg->nsects)
@@ -40,7 +40,7 @@ static void						get_symtab_32(t_sym *symtab,
 								struct mach_header *header,
 								struct load_command *lc)
 {
-	int							i;
+	uint32_t					i;
 	int							k;
 	struct segment_command		*seg;
 	struct section				*sec;
@@ -64,7 +64,7 @@ static void						get_symtab_32(t_sym *symtab,
 int								print_output_32(struct symtab_command *sym,
 								t_sym *symtab, char *ptr)
 {
-	int							i;
+	uint32_t					i;
 	char						*stringtable;
 	struct nlist				*array;
 
@@ -78,7 +78,7 @@ int								print_output_32(struct symtab_command *sym,
 
 int								handle_32(char *ptr)
 {
-	int							i;
+	uint32_t					i;
 	struct mach_header			*header;
 	struct load_command			*lc;
 	struct symtab_command		*sym;

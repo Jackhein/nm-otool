@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 17:05:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 16:54:06 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 17:04:42 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void						sort_value_64(char *stringtable,
 {
 	int						i;
 	int						j;
-	int						flag;
 	struct nlist_64			temp;
 
 	i = 0;

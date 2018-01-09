@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 12:23:40 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 16:53:18 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 17:03:38 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void			handle_fat(char *ptr)
 	struct fat_arch			*f_arch;
 	struct mach_header_64	*header;
 	int						offset;
-	int						i;
+	uint32_t				i;
 
 	f_header = (struct fat_header *)ptr;
 	f_arch = (void *)ptr + sizeof(struct fat_header);
