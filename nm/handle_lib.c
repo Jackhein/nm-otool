@@ -6,13 +6,13 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 12:24:32 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 15:06:28 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 16:55:52 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_nm.h"
 
-void				display_lib(char *ptr, int *ar_array, int array_size)
+static void			display_lib(char *ptr, int *ar_array, int array_size)
 {
 	int				i;
 	int				ar_offset;
@@ -64,7 +64,7 @@ static int			get_lib_ar(struct ranlib *ran, int size, char *ptr)
 	return (0);
 }
 
-int	            	handle_lib(char *ptr)
+int					handle_lib(char *ptr)
 {
 	int				i;
 	int				offset;

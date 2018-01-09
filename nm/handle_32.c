@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 10:56:08 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 16:52:29 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int								print_output_32(struct symtab_command *sym,
 	return (display_32(sym, stringtable, array, symtab));
 }
 
-int							handle_32(char *ptr)
+int								handle_32(char *ptr)
 {
 	int							i;
 	struct mach_header			*header;

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:43:59 by ademenet          #+#    #+#             */
-/*   Updated: 2017/12/29 15:16:02 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/08 18:36:11 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char		get_sect_type(uint8_t n_sect, t_sym *symtab)
 		return ('S');
 }
 
-char			get_type(uint8_t n_type, uint8_t n_sect, int n_value, 
+char			get_type(uint8_t n_type, uint8_t n_sect, int n_value,
 				t_sym *symtab)
 {
 	char		type;

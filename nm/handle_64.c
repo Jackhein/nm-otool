@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/08 19:10:41 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 16:52:55 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ int								print_output_64(struct symtab_command *sym,
 	stringtable = (void *)ptr + sym->stroff;
 	array = (void *)ptr + sym->symoff;
 	if (check(stringtable) || check(array))
-		return(error_display("File truncated or someway invalid."));
+		return (error_display("File truncated or someway invalid."));
 	array = sort_64(stringtable, array, sym->nsyms);
 	sort_value_64(stringtable, array, sym->nsyms);
 	return (display_64(sym, stringtable, array, symtab));
 }
 
-int							handle_64(char *ptr)
+int								handle_64(char *ptr)
 {
 	int							i;
 	struct mach_header_64		*header;

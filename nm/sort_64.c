@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 17:05:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/08 19:06:15 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 16:54:06 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void						sort_value_64(char *stringtable,
 		while (ft_strcmp(stringtable + sort[i].n_un.n_strx,
 			stringtable + sort[j].n_un.n_strx) == 0)
 		{
-			if (sort[i].n_value > sort[j].n_value && 
+			if (sort[i].n_value > sort[j].n_value &&
 				(sort[i].n_value != 0 || sort[j].n_value != 0))
 			{
 				temp = sort[j];

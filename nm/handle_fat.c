@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 12:23:40 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 16:00:27 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 16:53:18 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void			handle_fat(char *ptr)
 			break ;
 		f_arch = (void *)f_arch + sizeof(struct fat_arch);
 		if (check(f_arch) || check(f_header))
-			return;
+			return ;
 	}
 	header = (void *)ptr + offset;
 	nm((char *)header);
