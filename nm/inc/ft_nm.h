@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 12:43:42 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 12:18:09 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 13:28:08 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void			handle_fat(char *ptr);
 ** HANDLE_LIB
 */
 
-void			handle_lib(char *ptr);
+int				handle_lib(char *ptr);
 
 /*
 ** SORT_32
