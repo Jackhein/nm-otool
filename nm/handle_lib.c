@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 12:24:32 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 14:11:03 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/09 14:52:21 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,18 @@
 void				display_lib(char *ptr, int *ar_array, int array_size)
 {
 	int				i;
-	struct ar_hdr	*archi;
+	int				ar_offset;
+	char			*name;
+	struct ar_hdr	*ar;
 
 	i = -1;
 	while (++i < array_size)
 	{
-		archi = (void *)ptr + ar_array[i];
+		ar = (void *)ptr + ar_array[i];
+		name = ft_strstr(ar->ar_name, ARFMAG) + ft_strlen(ARFMAG);
+		ar_offset = ft_atoi(ft_strchr(ar->ar_name, '/') + 1);
+		ft_printf("\n%s(%s):\n", g_env.file, name);
+		nm((void *)ar + sizeof(struct ar_hdr) + ar_offset);
 	}
 }
 
@@ -46,7 +52,6 @@ static int			get_lib_ar(struct ranlib *ran, int size, char *ptr)
 	int				len_array;
 	int				ar_array[size];
 
-	debug("size = %d", size);
 	i = -1;
 	j = 0;
 	while (++i < size)
@@ -68,8 +73,6 @@ int	            	handle_lib(char *ptr)
 	int				size;
 	void			*offset_tab;
 	struct ranlib	*ran;
-
-	fprintf(stderr, "LIB\n");
 
 	offset = ft_atoi(ft_strchr((void *)(ptr + SARMAG), '/') + 1);
 	offset_tab = ptr + sizeof(struct ar_hdr) + SARMAG + offset;
