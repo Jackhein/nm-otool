@@ -6,26 +6,45 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 17:05:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 17:04:32 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/10 16:57:54 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_nm.h"
 
-static struct nlist			*init_sort_32(struct nlist *array, int nsyms)
+static int					init_sort_32(struct nlist *array,
+							struct nlist *sort, int nsyms)
 {
 	int						i;
-	struct nlist			*sort;
 
 	i = -1;
 	sort = (struct nlist *)malloc(nsyms * sizeof(struct nlist));
 	while (++i < nsyms)
+	{
+		if (check(&array[i]))
+			return (set_type_error("7 File truncated or someway invalid."));
 		sort[i] = array[i];
-	return (sort);
+	}
+	return (EXIT_SUCCESS);
 }
 
-void						sort_value_32(char *stringtable, struct nlist *sort,
-							int nsyms)
+static void					do_sorting_32(char *stringtable,
+							struct nlist sort_i, struct nlist sort_j)
+{
+	struct nlist			temp;
+
+	if (ft_strcmp(stringtable + sort_i.n_un.n_strx,
+	stringtable + sort_j.n_un.n_strx) < 0)
+	{
+		temp = sort_i;
+		sort_i = sort_j;
+		sort_j = temp;
+	}
+	return ;
+}
+
+int							sort_value_32(char *stringtable,
+							struct nlist *sort, int nsyms)
 {
 	int						i;
 	int						j;
@@ -49,32 +68,34 @@ void						sort_value_32(char *stringtable, struct nlist *sort,
 		}
 		i++;
 	}
-	return ;
+	return (EXIT_SUCCESS);
 }
 
-struct nlist				*sort_32(char *stringtable, struct nlist *array,
+int							sort_32(char *stringtable, struct nlist *array,
 							int nsyms)
 {
 	int						i;
 	int						j;
-	struct nlist			temp;
 	struct nlist			*sort;
 
 	i = -1;
-	sort = init_sort_32(array, nsyms);
+	sort = NULL;
+	if (init_sort_32(array, sort, nsyms) || check(stringtable))
+		return (set_type_error("8 File truncated or someway invalid."));
 	while (++i < nsyms)
 	{
 		j = -1;
 		while (++j < nsyms)
 		{
-			if (ft_strcmp(stringtable + sort[i].n_un.n_strx,
-			stringtable + sort[j].n_un.n_strx) < 0)
-			{
-				temp = sort[i];
-				sort[i] = sort[j];
-				sort[j] = temp;
-			}
+			if (!check(&sort[i]) && !check(&sort[j]) && !check(&sort[i].n_un) &&
+				!check(&sort[j].n_un) && !check(&sort[i].n_un.n_strx) &&
+				!check(&sort[j].n_un.n_strx) &&
+				!check(stringtable + sort[i].n_un.n_strx) &&
+				!check(stringtable + sort[j].n_un.n_strx))
+				do_sorting_32(stringtable, sort[i], sort[j]);
+			else
+				return (set_type_error("9 File truncated or someway invalid."));
 		}
 	}
-	return (sort);
+	return (EXIT_SUCCESS);
 }

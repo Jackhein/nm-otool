@@ -6,25 +6,44 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 17:05:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 17:04:42 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/10 18:47:37 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_nm.h"
 
-static struct nlist_64		*init_sort_64(struct nlist_64 *array, int nsyms)
+static int					init_sort_64(struct nlist_64 *array,
+							struct nlist_64 **sort, int nsyms)
 {
 	int						i;
-	struct nlist_64			*sort;
 
 	i = -1;
-	sort = (struct nlist_64 *)malloc(nsyms * sizeof(struct nlist_64));
+	*sort = (struct nlist_64 *)malloc(nsyms * sizeof(struct nlist_64));
 	while (++i < nsyms)
-		sort[i] = array[i];
-	return (sort);
+	{
+		if (check(&(array[i])))
+			return (set_type_error("10 File truncated or someway invalid."));
+		(*sort)[i] = array[i];
+	}
+	return (EXIT_SUCCESS);
 }
 
-void						sort_value_64(char *stringtable,
+static void					do_sorting_64(char *stringtable,
+							struct nlist_64 sort_i, struct nlist_64 sort_j)
+{
+	struct nlist_64			temp;
+
+	if (ft_strcmp(stringtable + sort_i.n_un.n_strx,
+	stringtable + sort_j.n_un.n_strx) < 0)
+	{
+		temp = sort_i;
+		sort_i = sort_j;
+		sort_j = temp;
+	}
+	return ;
+}
+
+int							sort_value_64(char *stringtable,
 							struct nlist_64 *sort, int nsyms)
 {
 	int						i;
@@ -49,32 +68,35 @@ void						sort_value_64(char *stringtable,
 		}
 		i++;
 	}
-	return ;
+	return (EXIT_SUCCESS);
 }
 
-struct nlist_64				*sort_64(char *stringtable, struct nlist_64 *array,
+int							sort_64(char *stringtable, struct nlist_64 *array,
 							int nsyms)
 {
 	int						i;
 	int						j;
-	struct nlist_64			temp;
 	struct nlist_64			*sort;
 
 	i = -1;
-	sort = init_sort_64(array, nsyms);
+	sort = NULL;
+	if (init_sort_64(array, &sort, nsyms) || check(stringtable))
+		return (set_type_error("11 File truncated or someway invalid."));
 	while (++i < nsyms)
 	{
 		j = -1;
 		while (++j < nsyms)
 		{
-			if (ft_strcmp(stringtable + sort[i].n_un.n_strx,
-			stringtable + sort[j].n_un.n_strx) < 0)
-			{
-				temp = sort[i];
-				sort[i] = sort[j];
-				sort[j] = temp;
-			}
+			if (check(&sort[i]) && check(&sort[j])
+				&& check(&sort[i].n_un) &&
+				check(&sort[j].n_un)
+				&& check(&sort[i].n_un.n_strx) &&
+				check(&sort[j].n_un.n_strx))
+				do_sorting_64(stringtable, sort[i], sort[j]);
+			else
+				return (set_type_error("12 File truncated or someway invalid."));
 		}
 	}
-	return (sort);
+	array = sort;
+	return (EXIT_SUCCESS);
 }

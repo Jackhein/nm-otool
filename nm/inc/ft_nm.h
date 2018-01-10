@@ -6,12 +6,14 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 12:43:42 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 16:57:37 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/10 18:49:20 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_NM_H
 # define FT_NM_H
+
+#define debug(M, ...) fprintf(stderr, "DEBUG %s:%d: " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
 
 # include <stdio.h>
 # include <sys/mman.h>
@@ -32,6 +34,7 @@ typedef struct	s_env
 	int			endianness;
 	void		*buff_addr;
 	int			buff_size;
+	char		*error;
 }				t_env;
 
 t_env			g_env;
@@ -56,7 +59,7 @@ int				display_32(struct symtab_command *sym, char *stringtable,
 ** FT_NM
 */
 
-void			nm(char *ptr);
+int				nm(char *ptr);
 
 /*
 ** GET_TYPE
@@ -97,18 +100,18 @@ int				handle_lib(char *ptr);
 ** SORT_32
 */
 
-void			sort_value_32(char *stringtable, struct nlist *sort,
+int				sort_value_32(char *stringtable, struct nlist *sort,
 				int nsyms);
-struct nlist	*sort_32(char *stringtable, struct nlist *array,
+int				sort_32(char *stringtable, struct nlist *array,
 				int nsyms);
 
 /*
 ** SORT_64
 */
 
-void			sort_value_64(char *stringtable, struct nlist_64 *sort,
+int				sort_value_64(char *stringtable, struct nlist_64 *sort,
 				int nsyms);
-struct nlist_64	*sort_64(char *stringtable, struct nlist_64 *array,
+int				sort_64(char *stringtable, struct nlist_64 *array,
 				int nsyms);
 
 /*
@@ -116,6 +119,7 @@ struct nlist_64	*sort_64(char *stringtable, struct nlist_64 *array,
 */
 
 int				check(void *ptr);
+int				set_type_error(char *error);
 int				error_display(char *error);
 void			usage(void);
 int				is_swap(uint32_t magic);

@@ -6,16 +6,18 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:49:57 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 17:01:21 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/10 18:48:51 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_nm.h"
 
-void				nm(char *ptr)
+int					nm(char *ptr)
 {
 	unsigned int	magic_number;
 
+	if (check(ptr))
+		return (set_type_error("1 File truncated or someway invalid."));
 	magic_number = *(int *)ptr;
 	g_env.endianness = is_swap(magic_number);
 	if (!ft_strncmp(ptr, ARMAG, SARMAG))
@@ -26,8 +28,7 @@ void				nm(char *ptr)
 		handle_32(ptr);
 	else if (magic_number == FAT_MAGIC || magic_number == FAT_CIGAM)
 		handle_fat(ptr);
-	else
-		error_display("The file was not recognized as a valid object file.");
+	return (EXIT_SUCCESS);
 }
 
 static int			iterate_over_files(void)
@@ -45,7 +46,8 @@ static int			iterate_over_files(void)
 		return (error_display("An error occured with mmap."));
 	g_env.buff_addr = ptr;
 	g_env.buff_size = buf.st_size;
-	nm(ptr);
+	if (nm(ptr))
+		return (error_display(NULL));
 	if (munmap(ptr, buf.st_size) < 0)
 		return (error_display("An error occured with munmap."));
 	return (EXIT_SUCCESS);
@@ -58,7 +60,8 @@ int					main(int ac, char **av)
 	if (ac == 1)
 	{
 		g_env.file = "a.out";
-		iterate_over_files();
+		if (iterate_over_files())
+			return (EXIT_FAILURE);
 	}
 	else
 	{
@@ -68,7 +71,8 @@ int					main(int ac, char **av)
 			g_env.file = av[i];
 			if (ac > 2)
 				ft_printf("\n%s:\n", g_env.file);
-			iterate_over_files();
+			if (iterate_over_files())
+				return (EXIT_FAILURE);
 		}
 	}
 	return (EXIT_SUCCESS);

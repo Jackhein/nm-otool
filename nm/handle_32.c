@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 17:02:48 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/10 16:45:42 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int								print_output_32(struct symtab_command *sym,
 	i = -1;
 	stringtable = (void *)ptr + sym->stroff;
 	array = (void *)ptr + sym->symoff;
-	array = sort_32(stringtable, array, sym->nsyms);
+	// array = sort_32(stringtable, array, sym->nsyms);
+	sort_32(stringtable, array, sym->nsyms);
 	sort_value_32(stringtable, array, sym->nsyms);
 	return (display_32(sym, stringtable, array, symtab));
 }
@@ -98,7 +99,7 @@ int								handle_32(char *ptr)
 		}
 		lc = (void *)lc + lc->cmdsize;
 		if (check(lc))
-			return (error_display("Invalid file."));
+			return (set_type_error("Invalid file."));
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }

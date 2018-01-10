@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 12:24:32 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 17:04:21 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/10 16:52:21 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int					handle_lib(char *ptr)
 	ran = (struct ranlib *)(offset_tab + sizeof(uint32_t));
 	size = (*((int *)offset_tab)) / sizeof(struct ranlib);
 	if (check(ran) || check(offset_tab))
-		return (error_display("File truncated or someway invalid."));
+		return (error_display("6 File truncated or someway invalid."));
 	get_lib_ar(ran, size, ptr);
 	return (0);
 }
