@@ -65,29 +65,29 @@ int							sort_value_32(char *stringtable, struct nlist *sort,
 	return (EXIT_SUCCESS);
 }
 
-struct nlist				*sort_32(char *stringtable, struct nlist *array,
+int							sort_32(char *stringtable, struct nlist **array,
 							int nsyms)
 {
 	int						i;
 	int						j;
-	struct nlist			temp;
 	struct nlist			*sort;
 
 	i = -1;
-	sort = init_sort_32(array, nsyms);
+	if (init_sort_32((*array), &sort, nsyms))
+		return (EXIT_FAILURE);
 	while (++i < nsyms)
 	{
 		j = -1;
 		while (++j < nsyms)
 		{
+			if (check(stringtable + sort[i].n_un.n_strx) ||
+				check(stringtable + sort[j].n_un.n_strx))
+				return (EXIT_FAILURE);
 			if (ft_strcmp(stringtable + sort[i].n_un.n_strx,
 			stringtable + sort[j].n_un.n_strx) < 0)
-			{
-				temp = sort[i];
-				sort[i] = sort[j];
-				sort[j] = temp;
-			}
+				swap_values_32(&(sort[i]), &(sort[j]));
 		}
 	}
-	return (sort);
+	(*array) = sort;
+	return (EXIT_SUCCESS);
 }
