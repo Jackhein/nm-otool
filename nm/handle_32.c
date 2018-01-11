@@ -70,16 +70,21 @@ static int						get_symtab_32(t_sym *symtab,
 int								print_output_32(struct symtab_command *sym,
 								t_sym *symtab, char *ptr)
 {
-	uint32_t					i;
 	char						*stringtable;
 	struct nlist				*array;
 
-	i = -1;
 	stringtable = (void *)ptr + sym->stroff;
 	array = (void *)ptr + sym->symoff;
-	array = sort_32(stringtable, array, sym->nsyms);
-	sort_value_32(stringtable, array, sym->nsyms);
-	return (display_32(sym, stringtable, array, symtab));
+	if (check(stringtable) || check(array) || check(&(sym->nsyms)))
+		return (EXIT_FAILURE);
+	if (sort_32(stringtable, &array, sym->nsyms))
+		return (EXIT_FAILURE);
+	if (sort_value_32(stringtable, array, sym->nsyms))
+		return (EXIT_FAILURE);
+	if (display_32(sym, stringtable, array, symtab))
+		return (EXIT_FAILURE);
+	free(array);
+	return (EXIT_SUCCESS);
 }
 
 int								handle_32(char *ptr)
