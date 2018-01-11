@@ -38,7 +38,7 @@ static int						get_symtab_sec_32(t_sym *symtab,
 	return (EXIT_SUCCESS);
 }
 
-static void						get_symtab_32(t_sym *symtab,
+static int						get_symtab_32(t_sym *symtab,
 								struct mach_header *header,
 								struct load_command *lc)
 {
@@ -56,11 +56,15 @@ static void						get_symtab_32(t_sym *symtab,
 			seg = (struct segment_command *)lc;
 			sec = (struct section *)((void *)seg +
 				sizeof(struct segment_command));
-			get_symtab_sec_32(symtab, seg, sec, &k);
+			if (check(seg) || check(sec) ||
+				get_symtab_sec_32(symtab, seg, sec, &k))
+				return (EXIT_FAILURE);
 		}
 		lc = (void *)lc + lc->cmdsize;
+		if (check(lc))
+			return (EXIT_FAILURE)
 	}
-	return ;
+	return (EXIT_SUCCESS);
 }
 
 int								print_output_32(struct symtab_command *sym,
