@@ -12,7 +12,7 @@
 
 #include "./inc/ft_nm.h"
 
-static void						get_symtab_sec_32(t_sym *symtab,
+static int						get_symtab_sec_32(t_sym *symtab,
 								struct segment_command *seg,
 								struct section *sec, int *k)
 {
@@ -31,9 +31,11 @@ static void						get_symtab_sec_32(t_sym *symtab,
 			ft_strcmp(sec->segname, SEG_DATA) == 0)
 			symtab->bss = (*k) + 1;
 		sec = (void *)sec + sizeof(struct section);
+		if (check(sec))
+			return (EXIT_FAILURE);
 		(*k)++;
 	}
-	return ;
+	return (EXIT_SUCCESS);
 }
 
 static void						get_symtab_32(t_sym *symtab,
