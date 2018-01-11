@@ -12,16 +12,20 @@
 
 #include "./inc/ft_nm.h"
 
-static struct nlist_64		*init_sort_64(struct nlist_64 *array, int nsyms)
+static int					init_sort_64(struct nlist_64 *array, 
+							struct nlist_64 **sort, int nsyms)
 {
 	int						i;
-	struct nlist_64			*sort;
 
 	i = -1;
-	sort = (struct nlist_64 *)malloc(nsyms * sizeof(struct nlist_64));
+	(*sort) = (struct nlist_64 *)malloc(nsyms * sizeof(struct nlist_64));
 	while (++i < nsyms)
-		sort[i] = array[i];
-	return (sort);
+	{
+		if (check(&(array[i])))
+			return (EXIT_FAILURE);
+		(*sort)[i] = array[i];
+	}
+	return (EXIT_SUCCESS);
 }
 
 void						sort_value_64(char *stringtable,
