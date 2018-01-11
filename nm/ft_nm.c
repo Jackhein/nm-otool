@@ -58,7 +58,8 @@ int					main(int ac, char **av)
 	if (ac == 1)
 	{
 		g_env.file = "a.out";
-		iterate_over_files();
+		if (iterate_over_files())
+			return (EXIT_FAILURE);
 	}
 	else
 	{
@@ -68,7 +69,8 @@ int					main(int ac, char **av)
 			g_env.file = av[i];
 			if (ac > 2)
 				ft_printf("\n%s:\n", g_env.file);
-			iterate_over_files();
+			if (iterate_over_files())
+				return (EXIT_FAILURE);
 		}
 	}
 	return (EXIT_SUCCESS);
