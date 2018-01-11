@@ -6,13 +6,13 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 12:24:32 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 17:04:21 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/11 18:12:55 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_nm.h"
 
-static void			display_lib(char *ptr, int *ar_array, int array_size)
+static int			display_lib(char *ptr, int *ar_array, int array_size)
 {
 	int				i;
 	int				ar_offset;
@@ -23,11 +23,16 @@ static void			display_lib(char *ptr, int *ar_array, int array_size)
 	while (++i < array_size)
 	{
 		ar = (void *)ptr + ar_array[i];
+		if (check(ar) || check(ar->ar_name))
+			return (EXIT_FAILURE);
 		name = ft_strstr(ar->ar_name, ARFMAG) + ft_strlen(ARFMAG);
 		ar_offset = ft_atoi(ft_strchr(ar->ar_name, '/') + 1);
 		ft_printf("\n%s(%s):\n", g_env.file, name);
+		if (check((void *)ar + sizeof(struct ar_hdr) + ar_offset))
+			return (EXIT_FAILURE);
 		nm((void *)ar + sizeof(struct ar_hdr) + ar_offset);
 	}
+	return (EXIT_SUCCESS);
 }
 
 static int			is_not_inside(int *ar_array, int ran_off, int size)
@@ -43,6 +48,11 @@ static int			is_not_inside(int *ar_array, int ran_off, int size)
 	return (1);
 }
 
+static int			sort_insert()
+{
+	return (EXIT_SUCCESS);
+}
+
 static int			get_lib_ar(struct ranlib *ran, int size, char *ptr)
 {
 	int				i;
@@ -53,14 +63,17 @@ static int			get_lib_ar(struct ranlib *ran, int size, char *ptr)
 	j = 0;
 	while (++i < size)
 	{
+		if (check(&(ran[i])) || check(&(ran[i].ran_off)))
+			return (EXIT_FAILURE);
 		if (is_not_inside(ar_array, ran[i].ran_off, size))
 		{
 			ar_array[j] = ran[i].ran_off;
 			j++;
 		}
 	}
-	display_lib(ptr, ar_array, j);
-	return (0);
+	if (display_lib(ptr, ar_array, j))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 int					handle_lib(char *ptr)
@@ -75,7 +88,8 @@ int					handle_lib(char *ptr)
 	ran = (struct ranlib *)(offset_tab + sizeof(uint32_t));
 	size = (*((int *)offset_tab)) / sizeof(struct ranlib);
 	if (check(ran) || check(offset_tab))
-		return (error_display("File truncated or someway invalid."));
-	get_lib_ar(ran, size, ptr);
-	return (0);
+		return (EXIT_FAILURE);
+	if (get_lib_ar(ran, size, ptr))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
