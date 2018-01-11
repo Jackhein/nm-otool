@@ -12,16 +12,21 @@
 
 #include "./inc/ft_nm.h"
 
-static struct nlist			*init_sort_32(struct nlist *array, int nsyms)
+static int					*init_sort_32(struct nlist *array,
+							struct nlist **sort, int nsyms)
 {
 	int						i;
-	struct nlist			*sort;
 
 	i = -1;
-	sort = (struct nlist *)malloc(nsyms * sizeof(struct nlist));
+	if (!((*sort) = (struct nlist *)malloc(nsyms * sizeof(struct nlist))))
+		return (EXIT_FAILURE);
 	while (++i < nsyms)
+	{
+		if (check(&(array[i])))
+			return (EXIT_FAILURE);
 		sort[i] = array[i];
-	return (sort);
+}
+	return (EXIT_SUCCESS);
 }
 
 void						sort_value_32(char *stringtable, struct nlist *sort,
