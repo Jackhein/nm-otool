@@ -28,7 +28,16 @@ static int					init_sort_64(struct nlist_64 *array,
 	return (EXIT_SUCCESS);
 }
 
-void						sort_value_64(char *stringtable,
+static void					swap_values_64(struct nlist_64 *sort_i,
+							struct nlist_64 *sort_j)
+{
+	struct nlist_64			temp;
+
+	temp = *sort_i;
+	*sort_i = *sort_j;
+	*sort_j = temp;
+}
+
 							struct nlist_64 *sort, int nsyms)
 {
 	int						i;
@@ -56,29 +65,29 @@ void						sort_value_64(char *stringtable,
 	return ;
 }
 
-struct nlist_64				*sort_64(char *stringtable, struct nlist_64 *array,
+int							sort_64(char *stringtable, struct nlist_64 **array,
 							int nsyms)
 {
 	int						i;
 	int						j;
-	struct nlist_64			temp;
 	struct nlist_64			*sort;
 
 	i = -1;
-	sort = init_sort_64(array, nsyms);
+	if (init_sort_64((*array), &sort, nsyms))
+		return (EXIT_FAILURE);
 	while (++i < nsyms)
 	{
 		j = -1;
 		while (++j < nsyms)
 		{
+			if (check(stringtable + sort[i].n_un.n_strx) ||
+				check(stringtable + sort[j].n_un.n_strx))
+				return (EXIT_FAILURE);
 			if (ft_strcmp(stringtable + sort[i].n_un.n_strx,
 			stringtable + sort[j].n_un.n_strx) < 0)
-			{
-				temp = sort[i];
-				sort[i] = sort[j];
-				sort[j] = temp;
-			}
+				swap_values_64(&(sort[i]), &(sort[j]));
 		}
 	}
-	return (sort);
+	(*array) = sort;
+	return (EXIT_SUCCESS);
 }
