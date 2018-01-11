@@ -29,7 +29,16 @@ static int					*init_sort_32(struct nlist *array,
 	return (EXIT_SUCCESS);
 }
 
-void						sort_value_32(char *stringtable, struct nlist *sort,
+static void					swap_values_32(struct nlist *sort_i,
+							struct nlist *sort_j)
+{
+	struct nlist			temp;
+
+	temp = *sort_i;
+	*sort_i = *sort_j;
+	*sort_j = temp;
+}
+
 							int nsyms)
 {
 	int						i;
