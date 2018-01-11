@@ -62,7 +62,7 @@ static int						get_symtab_32(t_sym *symtab,
 		}
 		lc = (void *)lc + lc->cmdsize;
 		if (check(lc))
-			return (EXIT_FAILURE)
+			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
