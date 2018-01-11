@@ -12,7 +12,7 @@
 
 #include "./inc/ft_nm.h"
 
-static void						get_symtab_sec_64(t_sym *symtab,
+static int						get_symtab_sec_64(t_sym *symtab,
 								struct segment_command_64 *seg,
 								struct section_64 *sec, int *k)
 {
@@ -31,12 +31,14 @@ static void						get_symtab_sec_64(t_sym *symtab,
 			ft_strcmp(sec->segname, SEG_DATA) == 0)
 			symtab->bss = (*k) + 1;
 		sec = (void *)sec + sizeof(struct section_64);
+		if (check(sec))
+			return (EXIT_FAILURE);
 		(*k)++;
 	}
-	return ;
+	return (EXIT_SUCCESS);
 }
 
-static void						get_symtab_64(t_sym *symtab,
+static int						get_symtab_64(t_sym *symtab,
 								struct mach_header_64 *header,
 								struct load_command *lc)
 {
@@ -54,11 +56,15 @@ static void						get_symtab_64(t_sym *symtab,
 			seg = (struct segment_command_64 *)lc;
 			sec = (struct section_64 *)((void *)seg +
 				sizeof(struct segment_command_64));
-			get_symtab_sec_64(symtab, seg, sec, &k);
+			if (check(seg) || check(sec) ||
+				get_symtab_sec_64(symtab, seg, sec, &k))
+				return (EXIT_SUCCESS);
 		}
 		lc = (void *)lc + lc->cmdsize;
+		if (check(lc))
+			return (EXIT_FAILURE);
 	}
-	return ;
+	return (EXIT_SUCCESS);
 }
 
 int								print_output_64(struct symtab_command *sym,
@@ -70,10 +76,11 @@ int								print_output_64(struct symtab_command *sym,
 	stringtable = (void *)ptr + sym->stroff;
 	array = (void *)ptr + sym->symoff;
 	if (check(stringtable) || check(array))
-		return (error_display("File truncated or someway invalid."));
+		return (EXIT_FAILURE);
 	array = sort_64(stringtable, array, sym->nsyms);
 	sort_value_64(stringtable, array, sym->nsyms);
-	return (display_64(sym, stringtable, array, symtab));
+	display_64(sym, stringtable, array, symtab);
+	return (EXIT_SUCCESS);
 }
 
 int								handle_64(char *ptr)
@@ -87,18 +94,20 @@ int								handle_64(char *ptr)
 	i = -1;
 	header = (struct mach_header_64 *)ptr;
 	lc = (void *)ptr + sizeof(*header);
-	get_symtab_64(&symtab, header, lc);
+	if (check(lc) || get_symtab_64(&symtab, header, lc))
+		return (EXIT_FAILURE);
 	while (++i < header->ncmds)
 	{
 		if (lc->cmd == LC_SYMTAB)
 		{
 			sym = (struct symtab_command *)lc;
-			print_output_64(sym, &symtab, ptr);
+			if (print_output_64(sym, &symtab, ptr))
+				return (EXIT_FAILURE);
 			break ;
 		}
 		lc = (void *)lc + lc->cmdsize;
 		if (check(lc))
-			return (error_display("Invalid file."));
+			return (EXIT_FAILURE);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
