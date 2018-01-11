@@ -25,7 +25,7 @@ int					nm(char *ptr)
 	else if (magic_number == MH_MAGIC_64 || magic_number == MH_CIGAM_64)
 		error = handle_64(ptr);
 	else if (magic_number == MH_MAGIC || magic_number == MH_CIGAM)
-		handle_32(ptr);
+		error = handle_32(ptr);
 	else if (magic_number == FAT_MAGIC || magic_number == FAT_CIGAM)
 		handle_fat(ptr);
 	return (error);

@@ -12,7 +12,7 @@
 
 #include "./inc/ft_nm.h"
 
-static int					*init_sort_32(struct nlist *array,
+static int					init_sort_32(struct nlist *array,
 							struct nlist **sort, int nsyms)
 {
 	int						i;
@@ -24,7 +24,7 @@ static int					*init_sort_32(struct nlist *array,
 	{
 		if (check(&(array[i])))
 			return (EXIT_FAILURE);
-		sort[i] = array[i];
+		(*sort)[i] = array[i];
 }
 	return (EXIT_SUCCESS);
 }
