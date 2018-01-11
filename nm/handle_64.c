@@ -81,7 +81,9 @@ int								print_output_64(struct symtab_command *sym,
 		return (EXIT_FAILURE);
 	if (sort_value_64(stringtable, array, sym->nsyms))
 		return (EXIT_FAILURE);
-	display_64(sym, stringtable, array, symtab);
+	if (display_64(sym, stringtable, array, symtab))
+		return (EXIT_FAILURE);
+	free(array);
 	return (EXIT_SUCCESS);
 }
 

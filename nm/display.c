@@ -35,7 +35,7 @@ int							display_64(struct symtab_command *sym,
 					stringtable + array[i].n_un.n_strx);
 		}
 	}
-	return (1);
+	return (EXIT_SUCCESS);
 }
 
 int							display_32(struct symtab_command *sym,
