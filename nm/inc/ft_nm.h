@@ -56,7 +56,7 @@ int				display_32(struct symtab_command *sym, char *stringtable,
 ** FT_NM
 */
 
-void			nm(char *ptr);
+int				nm(char *ptr);
 
 /*
 ** GET_TYPE

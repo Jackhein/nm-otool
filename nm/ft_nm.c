@@ -12,22 +12,23 @@
 
 #include "./inc/ft_nm.h"
 
-void				nm(char *ptr)
+int					nm(char *ptr)
 {
+	int				error;
 	unsigned int	magic_number;
 
+	error = 0;
 	magic_number = *(int *)ptr;
 	g_env.endianness = is_swap(magic_number);
 	if (!ft_strncmp(ptr, ARMAG, SARMAG))
 		handle_lib(ptr);
 	else if (magic_number == MH_MAGIC_64 || magic_number == MH_CIGAM_64)
-		handle_64(ptr);
+		error = handle_64(ptr);
 	else if (magic_number == MH_MAGIC || magic_number == MH_CIGAM)
 		handle_32(ptr);
 	else if (magic_number == FAT_MAGIC || magic_number == FAT_CIGAM)
 		handle_fat(ptr);
-	else
-		error_display("The file was not recognized as a valid object file.");
+	return (error);
 }
 
 static int			iterate_over_files(void)
@@ -45,7 +46,8 @@ static int			iterate_over_files(void)
 		return (error_display("An error occured with mmap."));
 	g_env.buff_addr = ptr;
 	g_env.buff_size = buf.st_size;
-	nm(ptr);
+	if (nm(ptr))
+		return (error_display("File truncated or invalid in someway."));
 	if (munmap(ptr, buf.st_size) < 0)
 		return (error_display("An error occured with munmap."));
 	return (EXIT_SUCCESS);
