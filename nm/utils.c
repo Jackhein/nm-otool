@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:44:47 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 12:17:57 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/11 12:59:54 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int				check(void *ptr)
 {
 	if (ptr >= g_env.buff_addr && ptr <= (g_env.buff_addr + g_env.buff_size))
-		return (0);
-	return (1);
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }
 
 int				error_display(char *error)
