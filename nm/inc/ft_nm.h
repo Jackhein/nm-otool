@@ -85,7 +85,7 @@ int				handle_64(char *ptr);
 ** HANDLE_FAT
 */
 
-void			handle_fat(char *ptr);
+int				handle_fat(char *ptr);
 
 /*
 ** HANDLE_LIB
