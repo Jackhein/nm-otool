@@ -58,7 +58,7 @@ static int						get_symtab_64(t_sym *symtab,
 				sizeof(struct segment_command_64));
 			if (check(seg) || check(sec) ||
 				get_symtab_sec_64(symtab, seg, sec, &k))
-				return (EXIT_SUCCESS);
+				return (EXIT_FAILURE);
 		}
 		lc = (void *)lc + lc->cmdsize;
 		if (check(lc))
