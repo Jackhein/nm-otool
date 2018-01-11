@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 17:05:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/11 16:28:51 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/11 16:47:46 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static int					init_sort_64(struct nlist_64 *array,
 	int						i;
 
 	i = -1;
-	(*sort) = (struct nlist_64 *)malloc(nsyms * sizeof(struct nlist_64));
+	if (!((*sort) = (struct nlist_64 *)malloc(nsyms * sizeof(struct nlist_64))))
+		return (EXIT_FAILURE);
 	while (++i < nsyms)
 	{
 		if (check(&(array[i])))
