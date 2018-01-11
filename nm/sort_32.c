@@ -39,31 +39,30 @@ static void					swap_values_32(struct nlist *sort_i,
 	*sort_j = temp;
 }
 
+int							sort_value_32(char *stringtable, struct nlist *sort,
 							int nsyms)
 {
 	int						i;
 	int						j;
-	struct nlist			temp;
 
 	i = 0;
 	while (i < nsyms - 1)
 	{
 		j = i + 1;
+		if (check(stringtable + sort[i].n_un.n_strx) ||
+			check(stringtable + sort[j].n_un.n_strx))
+			return (EXIT_FAILURE);
 		while (ft_strcmp(stringtable + sort[i].n_un.n_strx,
 			stringtable + sort[j].n_un.n_strx) == 0)
 		{
 			if (sort[i].n_value > sort[j].n_value &&
 				(sort[i].n_value != 0 || sort[j].n_value != 0))
-			{
-				temp = sort[j];
-				sort[j] = sort[i];
-				sort[i] = temp;
-			}
+				swap_values_32(&(sort[i]), &(sort[j]));
 			j++;
 		}
 		i++;
 	}
-	return ;
+	return (EXIT_SUCCESS);
 }
 
 struct nlist				*sort_32(char *stringtable, struct nlist *array,
