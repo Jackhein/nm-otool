@@ -97,9 +97,9 @@ int				handle_lib(char *ptr);
 ** SORT_32
 */
 
-void			sort_value_32(char *stringtable, struct nlist *sort,
+int				sort_value_32(char *stringtable, struct nlist *sort,
 				int nsyms);
-struct nlist	*sort_32(char *stringtable, struct nlist *array,
+int				sort_32(char *stringtable, struct nlist **array,
 				int nsyms);
 
 /*
