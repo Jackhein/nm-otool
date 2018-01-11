@@ -98,18 +98,20 @@ int								handle_32(char *ptr)
 	i = -1;
 	header = (struct mach_header *)ptr;
 	lc = (void *)ptr + sizeof(*header);
-	get_symtab_32(&symtab, header, lc);
+	if (check(lc) || get_symtab_32(&symtab, header, lc))
+		return (EXIT_FAILURE);
 	while (++i < header->ncmds)
 	{
 		if (lc->cmd == LC_SYMTAB)
 		{
 			sym = (struct symtab_command *)lc;
-			print_output_32(sym, &symtab, ptr);
+			if (print_output_32(sym, &symtab, ptr))
+				return (EXIT_FAILURE);
 			break ;
 		}
 		lc = (void *)lc + lc->cmdsize;
 		if (check(lc))
-			return (error_display("Invalid file."));
+			return (EXIT_FAILURE);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
