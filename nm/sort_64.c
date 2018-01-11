@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 17:05:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 17:04:42 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/11 16:28:51 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,31 +38,30 @@ static void					swap_values_64(struct nlist_64 *sort_i,
 	*sort_j = temp;
 }
 
+int							sort_value_64(char *stringtable,
 							struct nlist_64 *sort, int nsyms)
 {
 	int						i;
 	int						j;
-	struct nlist_64			temp;
 
 	i = 0;
 	while (i < nsyms - 1)
 	{
 		j = i + 1;
+		if (check(stringtable + sort[i].n_un.n_strx) ||
+			check(stringtable + sort[j].n_un.n_strx))
+			return (EXIT_FAILURE);
 		while (ft_strcmp(stringtable + sort[i].n_un.n_strx,
 			stringtable + sort[j].n_un.n_strx) == 0)
 		{
 			if (sort[i].n_value > sort[j].n_value &&
 				(sort[i].n_value != 0 || sort[j].n_value != 0))
-			{
-				temp = sort[j];
-				sort[j] = sort[i];
-				sort[i] = temp;
-			}
+				swap_values_64(&(sort[i]), &(sort[j]));
 			j++;
 		}
 		i++;
 	}
-	return ;
+	return (EXIT_SUCCESS);
 }
 
 int							sort_64(char *stringtable, struct nlist_64 **array,
@@ -84,7 +83,7 @@ int							sort_64(char *stringtable, struct nlist_64 **array,
 				check(stringtable + sort[j].n_un.n_strx))
 				return (EXIT_FAILURE);
 			if (ft_strcmp(stringtable + sort[i].n_un.n_strx,
-			stringtable + sort[j].n_un.n_strx) < 0)
+				stringtable + sort[j].n_un.n_strx) < 0)
 				swap_values_64(&(sort[i]), &(sort[j]));
 		}
 	}

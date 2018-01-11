@@ -75,10 +75,12 @@ int								print_output_64(struct symtab_command *sym,
 
 	stringtable = (void *)ptr + sym->stroff;
 	array = (void *)ptr + sym->symoff;
-	if (check(stringtable) || check(array))
+	if (check(stringtable) || check(array) || check(&(sym->nsyms)))
 		return (EXIT_FAILURE);
-	array = sort_64(stringtable, array, sym->nsyms);
-	sort_value_64(stringtable, array, sym->nsyms);
+	if (sort_64(stringtable, &array, sym->nsyms))
+		return (EXIT_FAILURE);
+	if (sort_value_64(stringtable, array, sym->nsyms))
+		return (EXIT_FAILURE);
 	display_64(sym, stringtable, array, symtab);
 	return (EXIT_SUCCESS);
 }

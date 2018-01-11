@@ -106,7 +106,7 @@ struct nlist	*sort_32(char *stringtable, struct nlist *array,
 ** SORT_64
 */
 
-void			sort_value_64(char *stringtable, struct nlist_64 *sort,
+int				sort_value_64(char *stringtable, struct nlist_64 *sort,
 				int nsyms);
 int				sort_64(char *stringtable, struct nlist_64 **array,
 				int nsyms);
