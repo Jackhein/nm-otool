@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:42:01 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 17:00:28 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/11 16:35:40 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ int							display_32(struct symtab_command *sym,
 					stringtable + array[i].n_un.n_strx);
 		}
 	}
-	return (1);
+	return (EXIT_SUCCESS);
 }
