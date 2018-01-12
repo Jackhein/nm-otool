@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 12:24:32 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/12 10:27:06 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/12 10:40:03 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static int			get_lib_ar(struct ranlib *ran, int size, char *ptr)
 			j++;
 		}
 	}
-	if (sort_insert(ar_array, size))
+	if (sort_insert(ar_array, j))
 		return (EXIT_FAILURE);
 	if (display_lib(ptr, ar_array, j))
 		return (EXIT_FAILURE);
