@@ -9,9 +9,9 @@ echo $FILESIZE
 for i in `seq 1 $FILESIZE`;
 do
     echo "$i / $FILESIZE"
-    head -c$i $FILE > test_$i
+    # head -c$i $FILE > test_$i
     # tail -c$i $FILE > test_$i
-    # tail -c+$i $FILE > test_$i
+    tail -c+$i $FILE > test_$i
     ./ft_nm test_$i
     rm test_$i
 done
