@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 12:43:42 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/09 17:15:50 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/12 17:30:27 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ int				display_32(struct symtab_command *sym, char *stringtable,
 				struct nlist *array, t_sym *symtab);
 
 /*
-** FT_NM
+** FT_OTOOL
 */
 
-void			nm(char *ptr);
+void			otool(char *ptr);
 
 /*
 ** GET_TYPE
