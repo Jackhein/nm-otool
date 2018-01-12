@@ -17,7 +17,7 @@ int					nm(char *ptr)
 	int				error;
 	unsigned int	magic_number;
 
-	error = 0;
+	error = 1;
 	magic_number = *(int *)ptr;
 	g_env.endianness = is_swap(magic_number);
 	if (!ft_strncmp(ptr, ARMAG, SARMAG))
