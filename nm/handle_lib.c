@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 12:24:32 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/11 18:12:55 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/12 10:27:06 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,28 @@ static int			is_not_inside(int *ar_array, int ran_off, int size)
 	return (1);
 }
 
-static int			sort_insert()
+static int			sort_insert(int *ar_array, int size)
 {
+	int				i;
+	int				j;
+	int				tmp;
+
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+			if (ar_array[i] < ar_array[j])
+			{
+				tmp = ar_array[i];
+				ar_array[i] = ar_array[j];
+				ar_array[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -62,6 +82,9 @@ static int			get_lib_ar(struct ranlib *ran, int size, char *ptr)
 	i = -1;
 	j = 0;
 	while (++i < size)
+		ar_array[i] = 0;
+	i = -1;
+	while (++i < size)
 	{
 		if (check(&(ran[i])) || check(&(ran[i].ran_off)))
 			return (EXIT_FAILURE);
@@ -71,6 +94,8 @@ static int			get_lib_ar(struct ranlib *ran, int size, char *ptr)
 			j++;
 		}
 	}
+	if (sort_insert(ar_array, size))
+		return (EXIT_FAILURE);
 	if (display_lib(ptr, ar_array, j))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
