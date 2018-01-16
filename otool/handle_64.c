@@ -142,6 +142,7 @@ static int						display_64(struct section_64 *sec)
 				addr += 16;
 		}
 		// display_bytes();
+		i++;
 	}
 	if (i > 0)
 		ft_putchar('\n');
