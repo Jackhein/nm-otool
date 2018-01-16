@@ -18,6 +18,18 @@ int				display_bytes(uint8_t byte)
 	return (EXIT_SUCCESS);
 }
 
+int				display_sectname(char *sectname)
+{
+	char		*name;
+
+	name = ft_strdup(sectname);
+	// TODO iterateur sur strupr!!!
+	debug("sectname = %s", name);
+	debug("name = %s", ft_strupr(name));
+	ft_printf("Contents of (%s,%s) section\n", ft_strupr(name), name);
+	return (EXIT_SUCCESS);
+}
+
 int							display_32(struct symtab_command *sym,
 							char *stringtable, struct nlist *array,
 							t_sym *symtab)
