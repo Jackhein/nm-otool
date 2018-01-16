@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:44:47 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/12 17:56:04 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/16 16:50:59 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,12 @@ int				is_swap(uint32_t magic)
 	if (magic == MH_CIGAM || magic == MH_CIGAM_64 || magic == FAT_CIGAM)
 		return (1);
 	return (0);
+}
+
+uint32_t					swap_bytes(uint32_t toswap)
+{
+	if (!g_env.endianness)
+		return (toswap);
+	return (((toswap & 0xff) << 24) | (((toswap >> 8) & 0xff) << 16) |
+		((toswap >> 16) & 0xff) << 8 | ((toswap >> 24) & 0xff));
 }

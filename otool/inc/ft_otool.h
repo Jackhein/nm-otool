@@ -6,12 +6,14 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 12:43:42 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/16 12:26:33 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/16 17:41:35 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_OTOOL_H
 # define FT_OTOOL_H
+
+#define debug(M, ...) fprintf(stderr, "DEBUG %s:%d: " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
 
 # include <stdio.h>
 # include <sys/mman.h>
@@ -114,5 +116,6 @@ int				check(void *ptr);
 int				error_display(char *error);
 void			usage(void);
 int				is_swap(uint32_t magic);
+uint32_t		swap_bytes(uint32_t toswap);
 
 #endif
