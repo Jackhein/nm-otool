@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 12:43:42 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/12 17:30:27 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/16 12:26:33 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ typedef struct	s_sym
 ** DISPLAY
 */
 
-int				display_64(struct symtab_command *sym, char *stringtable,
-				struct nlist_64 *array, t_sym *symtab);
 int				display_32(struct symtab_command *sym, char *stringtable,
 				struct nlist *array, t_sym *symtab);
 
@@ -56,7 +54,7 @@ int				display_32(struct symtab_command *sym, char *stringtable,
 ** FT_OTOOL
 */
 
-void			otool(char *ptr);
+int				otool(char *ptr);
 
 /*
 ** GET_TYPE
@@ -77,15 +75,13 @@ int				handle_32(char *ptr);
 ** HANDLE_64
 */
 
-int				print_output_64(struct symtab_command *sym,
-				t_sym *symtab, char *ptr);
-int				handle_64(char *ptr);
+int				handle_64(char *ptr, char show_filename);
 
 /*
 ** HANDLE_FAT
 */
 
-void			handle_fat(char *ptr);
+int				handle_fat(char *ptr);
 
 /*
 ** HANDLE_LIB
@@ -97,18 +93,18 @@ int				handle_lib(char *ptr);
 ** SORT_32
 */
 
-void			sort_value_32(char *stringtable, struct nlist *sort,
+int				sort_value_32(char *stringtable, struct nlist *sort,
 				int nsyms);
-struct nlist	*sort_32(char *stringtable, struct nlist *array,
+int				sort_32(char *stringtable, struct nlist **array,
 				int nsyms);
 
 /*
 ** SORT_64
 */
 
-void			sort_value_64(char *stringtable, struct nlist_64 *sort,
+int				sort_value_64(char *stringtable, struct nlist_64 *sort,
 				int nsyms);
-struct nlist_64	*sort_64(char *stringtable, struct nlist_64 *array,
+int				sort_64(char *stringtable, struct nlist_64 **array,
 				int nsyms);
 
 /*
