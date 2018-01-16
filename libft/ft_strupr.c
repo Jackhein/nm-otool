@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strupr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ademenet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/17 10:37:10 by ademenet          #+#    #+#             */
-/*   Updated: 2015/12/17 10:40:46 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/16 14:55:57 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	*ft_strupr(char *s1)
 	{
 		if (ft_islower(s1[i]))
 			s1[i] = ft_toupper(s1[i]);
+		i++;
 	}
 	return (s1);
 }
