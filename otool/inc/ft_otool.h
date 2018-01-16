@@ -50,9 +50,6 @@ typedef struct	s_sym
 int				display_bytes(uint8_t byte);
 int				display_sectname(char *sectname);
 
-int				display_32(struct symtab_command *sym, char *stringtable,
-				struct nlist *array, t_sym *symtab);
-
 /*
 ** FT_OTOOL
 */
@@ -70,8 +67,6 @@ char			get_type(uint8_t n_type, uint8_t n_sect, int n_value,
 ** HANDLE_32
 */
 
-int				print_output_32(struct symtab_command *sym,
-				t_sym *symtab, char *ptr);
 int				handle_32(char *ptr);
 
 /*
