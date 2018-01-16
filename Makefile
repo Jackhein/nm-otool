@@ -1,5 +1,5 @@
 NAME_NM = 			ft_nm
-# NAME_OTOOL = 		ft_otool
+NAME_OTOOL = 		ft_otool
 
 SRC_DIR_NM =		./nm
 SRC_DIR_OTOOL =	 	./otool
@@ -51,7 +51,6 @@ I_PRINTF = libft/ft_printf/libftprintf.a
 LIBFT = $(I_LIBFT) -Llibft -lft
 
 all: $(NAME_NM) $(NAME_OTOOL)
-# all: $(NAME_NM)
 
 $(NAME_NM): $(OBJ_NM)
 	make -C libft
