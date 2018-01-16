@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/16 15:26:21 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/16 17:44:16 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int						display_64(struct section_64 *sec)
 	uint64_t					i;
 	long unsigned int			addr;
 
-	byte = (uint8_t *)(g_env.buff_addr + sec->offset);
+	byte = (uint8_t *)(g_env.start + sec->offset);
 	i = 0;
 	addr = sec->addr;
 	while (i < sec->size)

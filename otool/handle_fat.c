@@ -6,19 +6,11 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 12:23:40 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/12 17:55:26 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/16 17:43:50 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_otool.h"
-
-uint32_t					swap_bytes(uint32_t toswap)
-{
-	if (!g_env.endianness)
-		return (toswap);
-	return (((toswap & 0xff) << 24) | (((toswap >> 8) & 0xff) << 16) |
-		((toswap >> 16) & 0xff) << 8 | ((toswap >> 24) & 0xff));
-}
 
 int							handle_fat(char *ptr)
 {
@@ -45,6 +37,7 @@ int							handle_fat(char *ptr)
 			return (EXIT_FAILURE);
 	}
 	header = (void *)ptr + offset;
+	g_env.start = header;
 	if (check(header))
 		return (EXIT_FAILURE);
 	otool((char *)header);
