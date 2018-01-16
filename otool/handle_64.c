@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/16 15:21:11 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/16 15:26:21 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int						display_64(struct section_64 *sec)
 		}
 		display_bytes(*byte);
 		if ((++i % 16) == 0 && i < sec->size)
-			ft_putchar('\n');
+			ft_putstr(" \n");
 		else
 			ft_putchar(' ');
 		byte++;
