@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:49:57 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/16 17:44:37 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/16 17:54:39 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int					main(int ac, char **av)
 		while (++i < ac)
 		{
 			g_env.file = av[i];
-			ft_printf("%s:\n", g_env.file);
 			if (iterate_over_files())
 				return (EXIT_FAILURE);
 		}

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 12:24:32 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/12 17:55:42 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/16 17:54:51 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ static int			display_lib(char *ptr, int *ar_array, int array_size)
 			return (EXIT_FAILURE);
 		name = ft_strstr(ar->ar_name, ARFMAG) + ft_strlen(ARFMAG);
 		ar_offset = ft_atoi(ft_strchr(ar->ar_name, '/') + 1);
-		ft_printf("\n%s(%s):\n", g_env.file, name);
+		ft_printf("%s(%s):\n", g_env.file, name);
 		if (check((void *)ar + sizeof(struct ar_hdr) + ar_offset))
 			return (EXIT_FAILURE);
+		g_env.start = (void *)ar + sizeof(struct ar_hdr) + ar_offset;
 		otool((void *)ar + sizeof(struct ar_hdr) + ar_offset);
 	}
 	return (EXIT_SUCCESS);
@@ -108,6 +109,7 @@ int					handle_lib(char *ptr)
 	void			*offset_tab;
 	struct ranlib	*ran;
 
+	ft_printf("Archive : %s\n", g_env.file);
 	offset = ft_atoi(ft_strchr((void *)(ptr + SARMAG), '/') + 1);
 	offset_tab = ptr + sizeof(struct ar_hdr) + SARMAG + offset;
 	ran = (struct ranlib *)(offset_tab + sizeof(uint32_t));
