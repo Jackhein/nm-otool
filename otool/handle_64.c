@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/16 14:58:20 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/16 15:21:11 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,11 @@ static int						display_64(struct section_64 *sec)
 }
 
 static int						print_output_64(struct segment_command_64 *seg,
-								struct section_64 *sec, char show_filename)
+								struct section_64 *sec)
 {
 	uint32_t					i;
 
 	i = 0;
-	if (show_filename)
-		ft_printf("%s:\n", g_env.file);
 	while (i < seg->nsects)
 	{
 		if (ft_strcmp(sec->sectname, SECT_TEXT) == 0 &&
@@ -57,12 +55,13 @@ static int						print_output_64(struct segment_command_64 *seg,
 			display_sectname(sec->sectname);
 			display_64(sec);
 		}
+		sec = (void *)sec + sizeof(*sec);
 		i++;
 	}
 	return (EXIT_SUCCESS);
 }
 
-int								handle_64(char *ptr, char show_filename)
+int								handle_64(char *ptr)
 {
 	uint32_t					i;
 	struct mach_header_64		*header;
@@ -82,7 +81,7 @@ int								handle_64(char *ptr, char show_filename)
 			seg = (struct segment_command_64 *)lc;
 			sec = (struct section_64 *)((void *)seg + sizeof(* seg));
 			if (check(seg) || check(sec) ||
-				print_output_64(seg, sec, show_filename))
+				print_output_64(seg, sec))
 				return (EXIT_FAILURE);
 		}
 		lc = (void *)lc + lc->cmdsize;

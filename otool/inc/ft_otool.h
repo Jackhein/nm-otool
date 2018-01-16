@@ -78,7 +78,7 @@ int				handle_32(char *ptr);
 ** HANDLE_64
 */
 
-int				handle_64(char *ptr, char show_filename);
+int				handle_64(char *ptr);
 
 /*
 ** HANDLE_FAT

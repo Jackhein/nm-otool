@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:49:57 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/16 10:48:09 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/16 15:22:44 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int					otool(char *ptr)
 	if (!ft_strncmp(ptr, ARMAG, SARMAG))
 		error = handle_lib(ptr);
 	else if (magic_number == MH_MAGIC_64 || magic_number == MH_CIGAM_64)
-		error = handle_64(ptr, 1);
+		error = handle_64(ptr);
 	else if (magic_number == MH_MAGIC || magic_number == MH_CIGAM)
 		error = handle_32(ptr);
 	else if (magic_number == FAT_MAGIC || magic_number == FAT_CIGAM)
@@ -69,8 +69,7 @@ int					main(int ac, char **av)
 		while (++i < ac)
 		{
 			g_env.file = av[i];
-			// if (ac > 2)
-				// ft_printf("\n%s:\n", g_env.file);
+			ft_printf("%s:\n", g_env.file);
 			if (iterate_over_files())
 				return (EXIT_FAILURE);
 		}
