@@ -204,8 +204,7 @@ int								handle_64(char *ptr, char show_filename)
 		if (lc->cmd == LC_SEGMENT_64)
 		{
 			seg = (struct segment_command_64 *)lc;
-			sec = (struct section_64 *)((void *)seg +
-				sizeof(struct segment_command_64));
+			sec = (struct section_64 *)((void *)seg + sizeof(* seg));
 			if (check(seg) || check(sec) ||
 				print_output_64(seg, sec, header, show_filename))
 				return (EXIT_FAILURE);
