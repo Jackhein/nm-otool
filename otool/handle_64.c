@@ -130,15 +130,16 @@ int							display_64(struct symtab_command *sym,
 static int						display_64(struct section_64 *sec)
 {
 	uint64_t					i;
+	long unsigned int			addr;
 
 	i = 0;
+	addr = sec->addr;
 	while (i < sec->size)
 	{
 		if (i == 0 || i % 16 == 0)
 		{
 			if (i != 0)
-				sec->addr += 16;
-			ft_printf("%016llx\t", sec->addr);
+				addr += 16;
 		}
 		// display_bytes();
 	}
