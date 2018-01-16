@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/16 12:40:00 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/16 14:06:56 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ static int						display_64(struct section_64 *sec)
 		{
 			if (i != 0)
 				addr += 16;
+			ft_printf("%016llx\t", addr);
 		}
 		// display_bytes();
 		i++;
@@ -153,20 +154,6 @@ static int						print_output_64(struct segment_command_64 *seg,
 								struct section_64 *sec, struct mach_header_64
 								*header, char show_filename)
 {
-	// char						*stringtable;
-	// struct nlist_64				*array;
-
-	// stringtable = (void *)ptr + sym->stroff;
-	// array = (void *)ptr + sym->symoff;
-	// if (check(stringtable) || check(array) || check(&(sym->nsyms)))
-		// return (EXIT_FAILURE);
-	// if (sort_64(stringtable, &array, sym->nsyms))
-		// return (EXIT_FAILURE);
-	// if (sort_value_64(stringtable, array, sym->nsyms))
-		// return (EXIT_FAILURE);
-	// if (display_64(sym, stringtable, array, symtab))
-		// return (EXIT_FAILURE);
-	// free(array);
 	uint32_t					i;
 
 	i = 0;
