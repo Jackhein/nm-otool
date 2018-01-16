@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/16 14:24:11 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/16 14:33:21 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ static int						display_64(struct section_64 *sec)
 			ft_printf("%016llx\t", addr);
 		}
 		display_bytes(*byte);
-		byte++;
 		if ((++i % 16) == 0 && i < sec->size)
 			ft_putchar('\n');
 		else
 			ft_putchar(' ');
+		byte++;
 	}
 	if (i > 0)
 		ft_putchar('\n');
@@ -42,8 +42,7 @@ static int						display_64(struct section_64 *sec)
 }
 
 static int						print_output_64(struct segment_command_64 *seg,
-								struct section_64 *sec, struct mach_header_64
-								*header, char show_filename)
+								struct section_64 *sec, char show_filename)
 {
 	uint32_t					i;
 
@@ -55,8 +54,7 @@ static int						print_output_64(struct segment_command_64 *seg,
 		if (ft_strcmp(sec->sectname, SECT_TEXT) == 0 &&
 			ft_strcmp(sec->segname, SEG_TEXT) == 0)
 		{
-			ft_printf("(char *)header + sect->offset = %s\n", (char *)header + sec->offset);
-			ft_printf("%s\n", sec->sectname);
+			display_sectname("__text");
 			display_64(sec);
 		}
 		i++;
@@ -84,7 +82,7 @@ int								handle_64(char *ptr, char show_filename)
 			seg = (struct segment_command_64 *)lc;
 			sec = (struct section_64 *)((void *)seg + sizeof(* seg));
 			if (check(seg) || check(sec) ||
-				print_output_64(seg, sec, header, show_filename))
+				print_output_64(seg, sec, show_filename))
 				return (EXIT_FAILURE);
 		}
 		lc = (void *)lc + lc->cmdsize;
