@@ -6,12 +6,17 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:42:01 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/16 12:14:55 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/16 14:20:40 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_otool.h"
 
+int				display_bytes(uint8_t byte)
+{
+	ft_printf("%02x", byte);
+	return (EXIT_SUCCESS);
+}
 
 int							display_32(struct symtab_command *sym,
 							char *stringtable, struct nlist *array,

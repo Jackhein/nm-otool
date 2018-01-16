@@ -47,6 +47,7 @@ typedef struct	s_sym
 ** DISPLAY
 */
 
+int				display_bytes(uint8_t byte);
 int				display_32(struct symtab_command *sym, char *stringtable,
 				struct nlist *array, t_sym *symtab);
 
