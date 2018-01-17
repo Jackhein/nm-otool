@@ -22,6 +22,8 @@ int							display_64(struct symtab_command *sym,
 	i = -1;
 	while (++i < sym->nsyms)
 	{
+		if (g_env.bonus == 3)
+			ft_printf("%s: ", g_env.file);
 		type = get_type(array[i].n_type, array[i].n_sect, array[i].n_value,
 			symtab);
 		if (ft_strcmp("radr://5614542", stringtable + array[i].n_un.n_strx)
@@ -48,6 +50,8 @@ int							display_32(struct symtab_command *sym,
 	i = -1;
 	while (++i < sym->nsyms)
 	{
+		if (g_env.bonus == 3)
+			ft_printf("%s: ", g_env.file);
 		type = get_type(array[i].n_type, array[i].n_sect, array[i].n_value,
 			symtab);
 		if (ft_strcmp("radr://5614542", stringtable + array[i].n_un.n_strx)
