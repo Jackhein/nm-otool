@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:44:47 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/17 12:13:14 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 14:46:26 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int				error_display(char *error)
 	return (-1);
 }
 
-void			usage(void)
+int				usage(void)
 {
-	ft_printf("Usage: %s [file ...]\n", g_env.file);
-	return ;
+	ft_printf("Usage: ./ft_otool [-d] [file ...]\n");
+	return (EXIT_SUCCESS);
 }
 
 int				is_swap(uint32_t magic)
