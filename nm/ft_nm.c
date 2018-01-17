@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:49:57 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/17 16:38:42 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 16:49:24 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** [-j]: display symbols names
 */
 
-static void 		check_bonus(int ac, char **av)
+static void			check_bonus(int ac, char **av)
 {
 	if (ac > 1)
 	{
