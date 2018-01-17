@@ -6,11 +6,18 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:49:57 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/17 15:30:23 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 16:38:42 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_nm.h"
+
+/*
+** [-p]: no sort
+** [-r]: reverse sort
+** [-o]: display file name
+** [-j]: display symbols names
+*/
 
 static void 		check_bonus(int ac, char **av)
 {
@@ -20,12 +27,10 @@ static void 		check_bonus(int ac, char **av)
 			g_env.bonus = 1;
 		else if (ft_strcmp(av[1], "-r") == 0)
 			g_env.bonus = 2;
-		else if (ft_strcmp(av[1], "-u") == 0)
+		else if (ft_strcmp(av[1], "-o") == 0)
 			g_env.bonus = 3;
-		else if (ft_strcmp(av[1], "-U") == 0)
-			g_env.bonus = 4;
 		else if (ft_strcmp(av[1], "-j") == 0)
-			g_env.bonus = 5;
+			g_env.bonus = 4;
 		else
 			g_env.bonus = 0;
 	}
@@ -90,7 +95,7 @@ int					main(int ac, char **av)
 		while (i < ac)
 		{
 			g_env.file = av[i];
-			if (ac > 2)
+			if (ac > 2 && g_env.bonus == 0)
 				ft_printf("\n%s:\n", g_env.file);
 			if (iterate_over_files())
 				return (EXIT_FAILURE);
