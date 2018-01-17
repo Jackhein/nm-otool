@@ -6,11 +6,22 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 12:23:40 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/16 17:59:18 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 14:50:29 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_otool.h"
+
+static int					handle_fat_bis(struct mach_header_64 **header,
+							char *ptr, int offset)
+{
+	(*header) = (void *)ptr + offset;
+	g_env.start = *header;
+	if (check(*header))
+		return (EXIT_FAILURE);
+	otool((char *)(*header));
+	return (EXIT_SUCCESS);
+}
 
 int							handle_fat(char *ptr)
 {
@@ -36,10 +47,5 @@ int							handle_fat(char *ptr)
 		if (check(f_arch) || check(f_header))
 			return (EXIT_FAILURE);
 	}
-	header = (void *)ptr + offset;
-	g_env.start = header;
-	if (check(header))
-		return (EXIT_FAILURE);
-	otool((char *)header);
-	return (EXIT_SUCCESS);
+	return (handle_fat_bis(&header, ptr, offset));
 }
