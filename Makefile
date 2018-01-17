@@ -70,23 +70,14 @@ $(OBJ_DIR_OTOOL)/%.o: $(SRC_DIR_OTOOL)/%.c
 	@mkdir $(OBJ_DIR_OTOOL) 2> /dev/null || true
 	$(CC) $(FLAGS) $(HEADERS) -o $@ -c $< $(I_LIBFT)
 
-res:
-	mkdir -p res/
-	cat /usr/include/mach-o/loader.h > res/loader.h
-	cat /usr/include/mach-o/nlist.h > res/nlist.h
-	cat /usr/include/mach/machine.h > res/machine.h
-	cat /usr/include/ar.h > res/ar.h
-
 clean:
 	rm -rf $(OBJ_NM) $(OBJ_OTOOL) $(NAME_NM) $(NAME_OTOOL)
-	# rm -rf $(OBJ_NM) $(NAME_NM)
 	@echo "\033[1;34mNm_otool\t\033[1;33mCleaning obj\t\033[0;32m[OK]\033[0m"
 
 fclean: clean
 	make fclean -C libft
-	rm -rf $(OBJ_DIR_NM) $(OBJ_DIR_OTOOL) res/
+	rm -rf $(OBJ_DIR_NM) $(OBJ_DIR_OTOOL)
 	@echo "\033[1;34mNm_otool\t\033[1;33mCleaning lib\t\033[0;32m[OK]\033[0m"
-	# rm -rf $(OBJ_DIR_NM)
 
 re: fclean all
 
