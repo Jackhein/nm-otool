@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:42:01 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/16 17:44:47 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 12:09:22 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int				display_sectname(char *sectname)
 	if (check(sectname))
 		return (EXIT_FAILURE);
 	name = ft_strdup(sectname);
-	ft_printf("Contents of (%s,", ft_strupr(name)),
+	ft_printf("Contents of (%s,", ft_strupr(name));
 	ft_printf("%s) section\n", ft_strlwr(name));
 	free(name);
 	return (EXIT_SUCCESS);
