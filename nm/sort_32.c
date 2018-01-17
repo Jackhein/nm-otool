@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 17:05:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/17 12:27:48 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 16:20:59 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ static void					swap_values_32(struct nlist *sort_i,
 	temp = *sort_i;
 	*sort_i = *sort_j;
 	*sort_j = temp;
+}
+
+static int					evaluate_sort_32(char *str_i, char *str_j)
+{
+	if (g_env.bonus == 2)
+		return (ft_strcmp(str_i, str_j) > 0);
+	else
+		return (ft_strcmp(str_i, str_j) < 0);
 }
 
 int							sort_value_32(char *stringtable, struct nlist *sort,
@@ -85,8 +93,8 @@ int							sort_32(char *stringtable, struct nlist **array,
 			if (check(stringtable + sort[i].n_un.n_strx) ||
 				check(stringtable + sort[j].n_un.n_strx))
 				return (EXIT_FAILURE);
-			if (ft_strcmp(stringtable + sort[i].n_un.n_strx,
-			stringtable + sort[j].n_un.n_strx) < 0)
+			if (evaluate_sort_32(stringtable + sort[i].n_un.n_strx,
+				stringtable + sort[j].n_un.n_strx))
 				swap_values_32(&(sort[i]), &(sort[j]));
 		}
 	}
