@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/17 12:11:26 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 12:23:43 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ int								handle_32(char *ptr)
 		{
 			seg = (struct segment_command *)lc;
 			sec = (struct section *)((void *)seg + sizeof(*seg));
-			if (check(seg) || check(sec) ||
-				print_output_32(seg, sec))
+			if (check(seg) || check(sec) || print_output_32(seg, sec))
 				return (EXIT_FAILURE);
 		}
 		lc = (void *)lc + lc->cmdsize;
