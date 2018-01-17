@@ -77,6 +77,8 @@ int							sort_32(char *stringtable, struct nlist **array,
 		return (EXIT_FAILURE);
 	while (++i < nsyms)
 	{
+		if (g_env.bonus == 1)
+			break ;
 		j = -1;
 		while (++j < nsyms)
 		{
