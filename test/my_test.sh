@@ -12,6 +12,7 @@ do
     # head -c$i $FILE > test_$i
     # tail -c$i $FILE > test_$i
     tail -c+$i $FILE > test_$i
-    ./ft_nm test_$i
+    # ./ft_nm test_$i
+    ./ft_otool test_$i
     rm test_$i
 done
