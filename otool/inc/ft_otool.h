@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 12:43:42 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/16 17:41:35 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 12:01:04 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_env
 	void		*buff_addr;
 	int			buff_size;
 	void		*start;
+	int			lib;
 }				t_env;
 
 t_env			g_env;

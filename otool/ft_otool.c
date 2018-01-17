@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:49:57 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/16 17:54:39 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 12:06:18 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static int			iterate_over_files(void)
 	g_env.buff_addr = ptr;
 	g_env.buff_size = buf.st_size;
 	g_env.start = ptr;
+	g_env.lib = 0;
 	if (otool(ptr))
 		return (error_display("File truncated or invalid in someway."));
 	if (munmap(ptr, buf.st_size) < 0)

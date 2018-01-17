@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/16 17:59:32 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 12:04:15 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ int								handle_64(char *ptr)
 	i = -1;
 	header = (struct mach_header_64 *)ptr;
 	lc = (void *)ptr + sizeof(*header);
-	ft_printf("%s:\n", g_env.file);
+	if (!g_env.lib)
+		ft_printf("%s:\n", g_env.file);
 	while (++i < header->ncmds)
 	{
 		if (check(lc))

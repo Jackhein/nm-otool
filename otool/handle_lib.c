@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/28 12:24:32 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/16 17:54:51 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 12:01:07 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int					handle_lib(char *ptr)
 	void			*offset_tab;
 	struct ranlib	*ran;
 
+	g_env.lib = 1;
 	ft_printf("Archive : %s\n", g_env.file);
 	offset = ft_atoi(ft_strchr((void *)(ptr + SARMAG), '/') + 1);
 	offset_tab = ptr + sizeof(struct ar_hdr) + SARMAG + offset;
