@@ -6,13 +6,13 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 17:05:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/11 16:47:46 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 12:27:56 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_nm.h"
 
-static int					init_sort_64(struct nlist_64 *array, 
+static int					init_sort_64(struct nlist_64 *array,
 							struct nlist_64 **sort, int nsyms)
 {
 	int						i;
