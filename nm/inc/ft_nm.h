@@ -32,6 +32,7 @@ typedef struct	s_env
 	int			endianness;
 	void		*buff_addr;
 	int			buff_size;
+	int			bonus;
 }				t_env;
 
 t_env			g_env;

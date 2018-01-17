@@ -6,11 +6,30 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:49:57 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/11 18:34:04 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 15:30:23 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./inc/ft_nm.h"
+
+static void 		check_bonus(int ac, char **av)
+{
+	if (ac > 1)
+	{
+		if (ft_strcmp(av[1], "-p") == 0)
+			g_env.bonus = 1;
+		else if (ft_strcmp(av[1], "-r") == 0)
+			g_env.bonus = 2;
+		else if (ft_strcmp(av[1], "-u") == 0)
+			g_env.bonus = 3;
+		else if (ft_strcmp(av[1], "-U") == 0)
+			g_env.bonus = 4;
+		else if (ft_strcmp(av[1], "-j") == 0)
+			g_env.bonus = 5;
+		else
+			g_env.bonus = 0;
+	}
+}
 
 int					nm(char *ptr)
 {
@@ -57,7 +76,10 @@ int					main(int ac, char **av)
 {
 	int				i;
 
-	if (ac == 1)
+	i = 1;
+	check_bonus(ac, av);
+	i = g_env.bonus != 0 ? ++i : i;
+	if (ac == 1 || (ac == 2 && g_env.bonus > 0))
 	{
 		g_env.file = "a.out";
 		if (iterate_over_files())
@@ -65,14 +87,14 @@ int					main(int ac, char **av)
 	}
 	else
 	{
-		i = 0;
-		while (++i < ac)
+		while (i < ac)
 		{
 			g_env.file = av[i];
 			if (ac > 2)
 				ft_printf("\n%s:\n", g_env.file);
 			if (iterate_over_files())
 				return (EXIT_FAILURE);
+			i++;
 		}
 	}
 	return (EXIT_SUCCESS);
