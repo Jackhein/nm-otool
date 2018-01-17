@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/17 12:23:49 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 14:48:24 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,14 @@ static int						print_output_64(struct segment_command_64 *seg,
 	i = 0;
 	while (i < seg->nsects)
 	{
-		if (ft_strcmp(sec->sectname, SECT_TEXT) == 0 &&
+		if (!g_env.bonus && ft_strcmp(sec->sectname, SECT_TEXT) == 0 &&
 			ft_strcmp(sec->segname, SEG_TEXT) == 0)
+		{
+			display_sectname(sec->sectname);
+			display_64(sec);
+		}
+		else if (g_env.bonus && ft_strcmp(sec->sectname, SECT_DATA) == 0 &&
+			ft_strcmp(sec->segname, SEG_DATA) == 0)
 		{
 			display_sectname(sec->sectname);
 			display_64(sec);

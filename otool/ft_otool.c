@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 15:49:57 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/17 12:06:18 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 14:47:19 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,21 @@ int					main(int ac, char **av)
 {
 	int				i;
 
-	if (ac == 1)
+	if (ac < 2)
+		return (usage());
+	i = 0;
+	if (ac > 1 && ft_strcmp(av[1], "-d") == 0)
 	{
-		g_env.file = "a.out";
-		if (iterate_over_files())
-			return (EXIT_FAILURE);
+		g_env.bonus = 1;
+		i++;
 	}
 	else
+		g_env.bonus = 0;
+	while (++i < ac)
 	{
-		i = 0;
-		while (++i < ac)
-		{
-			g_env.file = av[i];
-			if (iterate_over_files())
-				return (EXIT_FAILURE);
-		}
+		g_env.file = av[i];
+		if (iterate_over_files())
+			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
