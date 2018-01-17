@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:50:23 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/17 12:04:15 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 12:11:40 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int								handle_64(char *ptr)
 		if (lc->cmd == LC_SEGMENT_64)
 		{
 			seg = (struct segment_command_64 *)lc;
-			sec = (struct section_64 *)((void *)seg + sizeof(* seg));
+			sec = (struct section_64 *)((void *)seg + sizeof(*seg));
 			if (check(seg) || check(sec) ||
 				print_output_64(seg, sec))
 				return (EXIT_FAILURE);

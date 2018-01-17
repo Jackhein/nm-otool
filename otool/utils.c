@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 15:44:47 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/16 16:50:59 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 12:13:14 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int				is_swap(uint32_t magic)
 	return (0);
 }
 
-uint32_t					swap_bytes(uint32_t toswap)
+uint32_t		swap_bytes(uint32_t toswap)
 {
 	if (!g_env.endianness)
 		return (toswap);

@@ -6,7 +6,7 @@
 /*   By: ademenet <ademenet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 17:05:59 by ademenet          #+#    #+#             */
-/*   Updated: 2018/01/12 17:55:47 by ademenet         ###   ########.fr       */
+/*   Updated: 2018/01/17 12:12:54 by ademenet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int					init_sort_32(struct nlist *array,
 		if (check(&(array[i])))
 			return (EXIT_FAILURE);
 		(*sort)[i] = array[i];
-}
+	}
 	return (EXIT_SUCCESS);
 }
 
